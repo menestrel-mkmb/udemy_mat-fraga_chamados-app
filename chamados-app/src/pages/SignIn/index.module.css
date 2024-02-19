@@ -12,10 +12,29 @@
 
 .login__artc {
     border-radius: .5rem;
-    border: 1px solid black;
+    border: 1px solid var(--color-black);
     display: flex;
     flex-direction: column;
     gap: 2rem;
+
+    width: 50%;
+    margin: 0 auto;
+}
+
+.login__img {
+    background-color: var(--color-blue);
+    object-fit: contain;
+    
+    height: 100px;
+    width: 100%;
+
+    margin: 0 auto;
+    padding: 1rem 2rem;
+}
+
+.login__title {
+    text-align: center;
+    font-size: 2rem;
 }
 
 .login__forms {
