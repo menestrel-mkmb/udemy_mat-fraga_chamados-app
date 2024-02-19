@@ -9,7 +9,7 @@ export default function SignIn(){
 
     return(
         <main
-            className={'login ' + styles.login__sect}
+            className={styles.login}
         >
             <article
                 className={styles.login__artc}
