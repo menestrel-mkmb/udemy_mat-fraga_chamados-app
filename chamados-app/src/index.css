@@ -5,6 +5,14 @@
     box-sizing: border-box;
 }
 
+:root {
+    --color-black: #121212;
+    --color-white: #eaeaec;
+    --color-plain-white: #efefef;
+    --color-purple: #30067e;
+    --color-blue: #181c2e;
+}
+
 html,
 body,
 #root {
@@ -14,7 +22,7 @@ body,
 body {
     font-size: 14px;
     font-family: sans-serif;
-    background-color: #efefef;
+    background-color: var(--color-plain-white);
 }
 
 a {
