@@ -1,7 +1,7 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import styles from "./index.module.css";
-import { useState } from "react";
 
 export default function SignIn(){
     const [email, setEmail] = useState('');
@@ -9,14 +9,14 @@ export default function SignIn(){
 
     return(
         <main
-            className={styles.login}
+            className={'login ' + styles.login__sect}
         >
             <article
                 className={styles.login__artc}
             >
                 <img
                     className={styles.login__img}
-                    src=""
+                    src="../../../assets/imgs/logo.png"
                     alt=" "
                 />
                 <h2
@@ -38,6 +38,7 @@ export default function SignIn(){
                         <input
                             className={styles.email__inp}
                             type="email"
+                            placeholder="you@mail.tld"
                             value={email}
                             onChange={e=>setEmail(e.target.value)}
                         />
@@ -53,6 +54,7 @@ export default function SignIn(){
                         <input
                             className={styles.password__inp}
                             type="password"
+                            placeholder="********"
                             value={password}
                             onChange={e=>setPassword(e.target.value)}
                         />
