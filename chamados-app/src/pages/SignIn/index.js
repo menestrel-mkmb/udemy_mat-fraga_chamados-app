@@ -61,6 +61,7 @@ export default function SignIn(){
                     </section>
                     <button
                         className={styles.login__btn}
+                        type="submit"
                     >
                         Entrar
                     </button>
