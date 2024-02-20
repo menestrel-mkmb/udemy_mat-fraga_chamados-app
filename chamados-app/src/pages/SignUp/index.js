@@ -1,7 +1,7 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import styles from "./index.module.css";
-import { useState } from "react";
 
 export default function SignUp(){
     const [email, setEmail] = useState('');
@@ -59,6 +59,7 @@ export default function SignUp(){
                     </section>
                     <button
                         className={styles.signup__btn}
+                        type="submit"
                     >
                         Entrar
                     </button>
