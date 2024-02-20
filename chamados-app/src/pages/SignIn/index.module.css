@@ -1,4 +1,6 @@
 .login {
+    background-color: var(--color-black);
+
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -11,18 +13,20 @@
 }
 
 .login__artc {
+    background-color: var(--color-white);
     border-radius: .5rem;
-    border: 1px solid var(--color-black);
+    border: 1px solid var(--color-dark-blue);
     display: flex;
     flex-direction: column;
     gap: 2rem;
 
     width: 50%;
+    max-width: 600px;
     margin: 0 auto;
 }
 
 .login__img {
-    background-color: var(--color-blue);
+    background-color: var(--color-dark-blue);
     object-fit: contain;
     
     height: 100px;
@@ -38,8 +42,76 @@
 }
 
 .login__forms {
+    gap: .5rem;
+}
+
+.login__forms,
+.login__forms section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: .5rem;
+
+    padding: 0 10%;
+}
+
+.login__forms section {
+    position: relative;
+
+    min-height: 3rem;
+}
+
+.login__forms section label {
+    position: absolute;
+    top: .7rem;
+    left: 4.2rem;
+    overflow: visible;
+    z-index: 12;
+    
+    color: var(--color-white);
+    font-size: 0.62rem;
+    font-weight: 700;
+
+    align-self: flex-start;
+}
+
+.login__forms section input {
+    overflow: visible;
+    z-index: 11;
+
+    border-radius: .2rem;
+    border: none;
+    font-size: 1rem;
+
+    min-width: 400px;
+    width: 100%;
+
+    margin-top: .5rem;
+    padding: 1rem;
+}
+
+.login__btn {
+    background-color: var(--color-dark-blue);
+    border: 2px solid var(--color-dark-blue);
+    border-radius: .5rem;
+    color: var(--color-white);
+    font-weight: 500;
+
+    padding: 1rem 2rem;
+
+    transition: all 200ms;
+}
+
+.login__btn:hover {
+    background-color: var(--color-purple);
+    border: 2px solid var(--color-dark-blue);
+}
+
+.register__lnk {
+    color: var(--color-dark-blue);
+    font-size: .62rem;
+    margin-bottom: 2rem;
+}
+
+.register__lnk:hover {
+    text-decoration: underline;
 }
