@@ -1,12 +1,31 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { firebaseAuth } from "../../services/firebaseConfig";
+
 import styles from "./index.module.css";
 
 export default function SignUp(){
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const createAccount = async (e)=>{
+        e.preventDefault();
+
+        if(name === '' || email === '' || password === '') return;
+
+        await createUserWithEmailAndPassword(firebaseAuth, email, password)
+        .then( (value) => {
+            console.log("Conta criada com sucesso");
+            console.log(value);
+        })
+        .catch( (reason) => {
+            console.log("Erro ao criar a conta");
+            console.log(reason);
+        })
+    };
 
     return(
         <main
@@ -27,6 +46,7 @@ export default function SignUp(){
                 </h2>
                 <form
                     className={styles.signup__forms}
+                    onSubmit={createAccount}
                 >
                     <section
                         className={styles.name__sect}
