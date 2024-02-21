@@ -84,9 +84,9 @@ export default function SignUp(){
                     </button>
                     <Link
                         className={styles.register__lnk}
-                        to='/signin'
+                        to='/login'
                     >
-                        Entrar na sua conta
+                        Já possui uma conta? Faça login
                     </Link>
                 </form>
             </article>
