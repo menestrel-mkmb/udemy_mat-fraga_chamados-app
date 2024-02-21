@@ -10,6 +10,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
     <header>
+      <Link to="/dashboard">Dashboard</Link>
       <Link to="/login">Entrar</Link>
       <Link to="/signup">Cadastrar</Link>
     </header>
