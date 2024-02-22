@@ -20,6 +20,7 @@ export default function AuthProvider({ children }) {
     
     const [user, setUser] = useState({});
     const [authOk, setAuthOk] = useState(false);
+    const [signOk, setSignOk] = useState(false);
     const [loadingAuth, setLoadingAuth] = useState(false);
 
     const loginUser = async (e) => {
@@ -58,13 +59,13 @@ export default function AuthProvider({ children }) {
 
         await createUserWithEmailAndPassword(firebaseAuth, email, password)
         .then( (value) => {
-            console.log("Conta criada com sucesso");
             setUser({
                 uid: value.user.uid,
                 name: value.user.displayName,
                 email: value.user.email,
                 verified: value.user.emailVerified,
             });
+            setSignOk(true);
         })
         .catch( (reason) => {
             console.log("Erro ao criar a conta");
@@ -87,6 +88,7 @@ export default function AuthProvider({ children }) {
             }}
         >
             { authOk && <Navigate to="/dashboard" />}
+            { signOk && <Navigate to="/login" />}
             { children }
         </AuthContext.Provider>
     );
