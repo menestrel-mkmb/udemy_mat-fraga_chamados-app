@@ -1,30 +1,15 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
-
 import styles from "./index.module.css";
 
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { firebaseAuth } from "../../services/firebaseConfig";
+import { AuthContext } from "../../contexts/auth";
 
 export default function SignIn(){
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
-    const loginUser = async (e) => {
-        e.preventDefault();
-
-        if(email === '' || password === '') return;
-        
-        await signInWithEmailAndPassword(firebaseAuth, email, password)
-        .then( (value) => {
-            console.log("Logado com sucesso");
-            console.log(value);
-        })
-        .catch( (reason) => {
-            console.log("Erro ao logar");
-            console.log(reason);
-        })
-    }
+    const { 
+        email, setEmail,
+        password, setPassword,
+        loginUser,
+    } = useContext(AuthContext);
 
     return(
         <main
@@ -60,7 +45,7 @@ export default function SignIn(){
                             type="email"
                             placeholder="you@mail.tld"
                             value={email}
-                            onChange={e=>setEmail(e.target.value)}
+                            onChange={(e)=>{setEmail(e.target.value)}}
                         />
                     </section>
                     <section

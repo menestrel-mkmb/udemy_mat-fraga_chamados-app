@@ -19,7 +19,8 @@ export default function AuthProvider({ children }) {
     
     const [user, setUser] = useState({});
 
-    const loginUser = async (email, password) => {
+    const loginUser = async (e) => {
+        e.preventDefault();
 
         if(email === '' || password === '' ||
             !email || !password
