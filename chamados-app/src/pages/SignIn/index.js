@@ -9,6 +9,8 @@ export default function SignIn(){
         email, setEmail,
         password, setPassword,
         loginUser,
+
+        loadingAuth
     } = useContext(AuthContext);
 
     return(
@@ -68,7 +70,9 @@ export default function SignIn(){
                         className={styles.login__btn}
                         type="submit"
                     >
-                        Entrar
+                        {loadingAuth ?
+                        "Aguarde, carregando..." :
+                            "Entrar"}
                     </button>
                     <Link
                         className={styles.register__lnk}

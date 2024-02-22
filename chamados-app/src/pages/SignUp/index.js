@@ -10,7 +10,9 @@ export default function SignUp(){
         
         email, setEmail,
         password, setPassword,
-        createAccount
+        createAccount,
+
+        loadingAuth
     } = useContext(AuthContext);
     
 
@@ -87,7 +89,9 @@ export default function SignUp(){
                         className={styles.signup__btn}
                         type="submit"
                     >
-                        Cadastrar
+                        {loadingAuth ?
+                        "Aguarde, carregando..." :
+                        "Cadastrar"}
                     </button>
                     <Link
                         className={styles.register__lnk}
