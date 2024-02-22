@@ -18,22 +18,29 @@ export default function AuthProvider({ children }) {
     const [name, setName] = useState('');
     
     const [user, setUser] = useState({});
+    const [loadingAuth, setLoadingAuth] = useState(false);
 
     const loginUser = async (e) => {
         e.preventDefault();
+        setLoadingAuth(true);
 
         if(email === '' || password === '' ||
             !email || !password
-        ) return;
+        ) {
+            setLoadingAuth(false);
+            return;
+        }
         
         await signInWithEmailAndPassword(firebaseAuth, email, password)
         .then( (value) => {
-            console.log("Logado com sucesso");
             setUser(value);
-            console.log(user);
+            setLoadingAuth(false);
 
+            console.log(user);
         })
         .catch( (reason) => {
+            setLoadingAuth(false);
+            
             console.log("Erro ao logar");
             console.log(reason);
         });
@@ -42,12 +49,20 @@ export default function AuthProvider({ children }) {
     const createAccount = async (e)=>{
         e.preventDefault();
 
-        if(name === '' || email === '' || password === '') return;
+        if(name === '' || email === '' || password === '') {
+            setLoadingAuth(false);
+            return;
+        }
 
         await createUserWithEmailAndPassword(firebaseAuth, email, password)
         .then( (value) => {
             console.log("Conta criada com sucesso");
-            console.log(value);
+            setUser({
+                uid: value.user.uid,
+                name: value.user.displayName,
+                email: value.user.email,
+                verified: value.user.emailVerified,
+            });
         })
         .catch( (reason) => {
             console.log("Erro ao criar a conta");
@@ -66,6 +81,7 @@ export default function AuthProvider({ children }) {
                 createAccount,
 
                 user, setUser,
+                loadingAuth,
             }}
         >
             { children }
