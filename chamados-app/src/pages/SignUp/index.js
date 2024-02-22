@@ -1,31 +1,18 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { firebaseAuth } from "../../services/firebaseConfig";
-
 import styles from "./index.module.css";
+import { AuthContext } from "../../contexts/auth";
 
 export default function SignUp(){
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
-    const createAccount = async (e)=>{
-        e.preventDefault();
-
-        if(name === '' || email === '' || password === '') return;
-
-        await createUserWithEmailAndPassword(firebaseAuth, email, password)
-        .then( (value) => {
-            console.log("Conta criada com sucesso");
-            console.log(value);
-        })
-        .catch( (reason) => {
-            console.log("Erro ao criar a conta");
-            console.log(reason);
-        })
-    };
+    const {
+        name, setName,
+        
+        email, setEmail,
+        password, setPassword,
+        createAccount
+    } = useContext(AuthContext);
+    
 
     return(
         <main
