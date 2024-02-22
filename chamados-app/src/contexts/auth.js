@@ -2,6 +2,7 @@ import {
     createContext,
     useState
 } from 'react';
+import { Navigate } from 'react-router-dom';
 
 import {
     createUserWithEmailAndPassword,
@@ -18,6 +19,7 @@ export default function AuthProvider({ children }) {
     const [name, setName] = useState('');
     
     const [user, setUser] = useState({});
+    const [authOk, setAuthOk] = useState(false);
     const [loadingAuth, setLoadingAuth] = useState(false);
 
     const loginUser = async (e) => {
@@ -28,7 +30,6 @@ export default function AuthProvider({ children }) {
             !email || !password
         ) {
             setLoadingAuth(false);
-            return;
         }
         
         await signInWithEmailAndPassword(firebaseAuth, email, password)
@@ -37,10 +38,11 @@ export default function AuthProvider({ children }) {
             setLoadingAuth(false);
 
             console.log(user);
+            setAuthOk(true);
         })
         .catch( (reason) => {
             setLoadingAuth(false);
-            
+
             console.log("Erro ao logar");
             console.log(reason);
         });
@@ -84,6 +86,7 @@ export default function AuthProvider({ children }) {
                 loadingAuth,
             }}
         >
+            { authOk && <Navigate to="/dashboard" />}
             { children }
         </AuthContext.Provider>
     );
