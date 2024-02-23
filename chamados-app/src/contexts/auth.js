@@ -8,7 +8,8 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword
 } from "firebase/auth";
-import { firebaseAuth } from "../services/firebaseConfig";
+import { firebaseAuth, firebaseDb } from "../services/firebaseConfig";
+import { doc, setDoc } from "firebase/firestore";
 
 export const AuthContext = createContext({});
 
@@ -58,14 +59,25 @@ export default function AuthProvider({ children }) {
         }
 
         await createUserWithEmailAndPassword(firebaseAuth, email, password)
-        .then( (value) => {
-            setUser({
-                uid: value.user.uid,
-                name: value.user.displayName,
-                email: value.user.email,
-                verified: value.user.emailVerified,
-            });
-            setSignOk(true);
+        .then( async (value) => {
+            const docRef = doc(firebaseDb, "users", value.user.uid);
+            await setDoc(docRef, {
+                nome: name,
+                avatarUrl: null,
+            })
+            .then( () => {
+                setUser({
+                    uid: value.user.uid,
+                    name: value.user.displayName,
+                    email: value.user.email,
+                    verified: value.user.emailVerified,
+                });
+                setSignOk(true);
+            })
+            .catch( (reason) => {
+                console.log("Erro ao criar dados do usuário");
+                console.log(reason);
+            })
         })
         .catch( (reason) => {
             console.log("Erro ao criar a conta");
