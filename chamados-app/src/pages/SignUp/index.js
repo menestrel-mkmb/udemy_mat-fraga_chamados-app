@@ -35,7 +35,7 @@ export default function SignUp(){
                 </h2>
                 <form
                     className={styles.signup__forms}
-                    onSubmit={e => createAccount(e)}}
+                    onSubmit={e => {createAccount(e)}}
                 >
                     <section
                         className={styles.name__sect}
