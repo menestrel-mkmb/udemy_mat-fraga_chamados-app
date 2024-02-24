@@ -37,6 +37,7 @@ export default function AuthProvider({ children }) {
         await signInWithEmailAndPassword(firebaseAuth, email, password)
         .then( (value) => {
             setUser(value);
+            storageUser(value);
             setLoadingAuth(false);
 
             console.log(user);
@@ -72,6 +73,7 @@ export default function AuthProvider({ children }) {
                     email: value.user.email,
                     verified: value.user.emailVerified,
                 });
+                storageUser(value);
                 autoredir("/login");
             })
             .catch( (reason) => {
@@ -84,6 +86,10 @@ export default function AuthProvider({ children }) {
             console.log(reason);
         })
     };
+
+    const storageUser = (data) => {
+        localStorage.setItem("@ticketsPRO", JSON.stringify(data));
+    }
 
     return(
         <AuthContext.Provider 
