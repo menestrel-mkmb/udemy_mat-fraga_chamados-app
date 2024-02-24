@@ -2,7 +2,7 @@ import {
     createContext,
     useState
 } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import {
     createUserWithEmailAndPassword,
@@ -20,9 +20,9 @@ export default function AuthProvider({ children }) {
     const [name, setName] = useState('');
     
     const [user, setUser] = useState({});
-    const [authOk, setAuthOk] = useState(false);
-    const [signOk, setSignOk] = useState(false);
     const [loadingAuth, setLoadingAuth] = useState(false);
+
+    const autoredir = useNavigate();
 
     const loginUser = async (e) => {
         e.preventDefault();
@@ -40,7 +40,7 @@ export default function AuthProvider({ children }) {
             setLoadingAuth(false);
 
             console.log(user);
-            setAuthOk(true);
+            autoredir("/dashboard");
         })
         .catch( (reason) => {
             setLoadingAuth(false);
@@ -72,7 +72,7 @@ export default function AuthProvider({ children }) {
                     email: value.user.email,
                     verified: value.user.emailVerified,
                 });
-                setSignOk(true);
+                autoredir("/login");
             })
             .catch( (reason) => {
                 console.log("Erro ao criar dados do usuário");
@@ -99,8 +99,6 @@ export default function AuthProvider({ children }) {
                 loadingAuth,
             }}
         >
-            { authOk && <Navigate to="/dashboard" />}
-            { signOk && <Navigate to="/login" />}
             { children }
         </AuthContext.Provider>
     );
