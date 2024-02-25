@@ -38,7 +38,6 @@ export default function AuthProvider({ children }) {
         
         await signInWithEmailAndPassword(firebaseAuth, email, password)
         .then( (value) => {
-            setUser(value);
             storageUser(value);
             setLoadingAuth(false);
 
@@ -70,12 +69,6 @@ export default function AuthProvider({ children }) {
                 avatarUrl: null,
             })
             .then( () => {
-                setUser({
-                    uid: value.user.uid,
-                    name: value.user.displayName,
-                    email: value.user.email,
-                    verified: value.user.emailVerified,
-                });
                 storageUser(value);
                 toast.info("Lembre de confirmar seu e-mail antes de entrar");
                 autoredir("/login");
@@ -92,7 +85,14 @@ export default function AuthProvider({ children }) {
     };
 
     const storageUser = (data) => {
-        localStorage.setItem("@ticketsPRO", JSON.stringify(data));
+        const dataObj = {
+            uid: data.user.uid,
+            nome: name,
+            email: data.user.email,
+            avatarUrl: null
+        }
+        setUser(dataObj);
+        localStorage.setItem("@ticketsPRO", JSON.stringify(dataObj));
     }
 
     return(
