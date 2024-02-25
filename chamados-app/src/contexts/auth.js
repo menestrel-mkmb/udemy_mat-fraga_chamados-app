@@ -11,6 +11,8 @@ import {
 import { firebaseAuth, firebaseDb } from "../services/firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
 
+import { toast } from 'react-toastify';
+
 export const AuthContext = createContext({});
 
 export default function AuthProvider({ children }) {
@@ -41,6 +43,7 @@ export default function AuthProvider({ children }) {
             setLoadingAuth(false);
 
             console.log(user);
+            toast.success("Bem-vindo(a) ao sistema");
             autoredir("/dashboard");
         })
         .catch( (reason) => {
@@ -74,6 +77,7 @@ export default function AuthProvider({ children }) {
                     verified: value.user.emailVerified,
                 });
                 storageUser(value);
+                toast.info("Lembre de confirmar seu e-mail antes de entrar");
                 autoredir("/login");
             })
             .catch( (reason) => {
