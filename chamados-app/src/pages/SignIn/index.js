@@ -33,9 +33,10 @@ export default function SignIn(){
                 </h2>
                 { logginAttempt &&
                     <p
+                        className={styles.redirect__txt}
                     >
                         Não foi redirecionado? Clique 
-                        <Link to='/dashboard'>aqui</Link>
+                        <Link to='/dashboard'> aqui</Link>
                     </p>
                 }
                 <form

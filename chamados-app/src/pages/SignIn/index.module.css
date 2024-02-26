@@ -41,6 +41,11 @@
     font-size: 2rem;
 }
 
+.redirect__txt {
+    text-align: center;
+    font-size: .62rem;
+}
+
 .login__forms {
     gap: .5rem;
 }
