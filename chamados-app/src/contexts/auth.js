@@ -5,11 +5,11 @@ import {
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { firebaseAuth, firebaseDb } from "../services/firebaseConfig";
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword
 } from "firebase/auth";
-import { firebaseAuth, firebaseDb } from "../services/firebaseConfig";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
 import { toast } from 'react-toastify';
@@ -21,7 +21,7 @@ export default function AuthProvider({ children }) {
     const [password, setPassword] = useState('');
     
     const [name, setName] = useState('');
-    const [avatarUrl, setAvatarUrl] = useState('');
+    const [avatarUrl, setAvatarUrl] = useState(null);
     
     const [user, setUser] = useState(null);
     const [loadingAuth, setLoadingAuth] = useState(false);
@@ -30,17 +30,34 @@ export default function AuthProvider({ children }) {
     const autoredir = useNavigate();
 
     useEffect( () => {
-        const loadUser = async () => {
-            const userLocal = localStorage.getItem("@ticketsPRO");
-            if(userLocal){
-                const userParsed = JSON.parse(userLocal) || null;
-                if(userParsed) setUser(userParsed);
-            }
-        }
         loadUser();
 
         setLoadingPage(false);
     }, []);
+
+    const loadUser = async () => {
+        const userLocal = localStorage.getItem("@ticketsPRO");
+        if(userLocal){
+            const userParsed = JSON.parse(userLocal) || null;
+            setUser(userParsed);
+        }
+    }
+
+    const getUserInfo = async (value) => {
+        const docRef = doc(firebaseDb, "users", value.user.uid );
+        const docSnap = await getDoc(docRef);
+
+        const dataObj = {
+            uid: value.user.uid,
+            name: docSnap.data().nome,
+            email: value.user.email,
+            avatarUrl: docSnap.data().avatarUrl
+        }
+
+        setUser(dataObj);
+        localStorage.setItem("@ticketsPRO", JSON.stringify(dataObj));
+        setLoadingAuth(false);
+    }
 
     const clearFields = () => {
         setEmail('');
@@ -61,13 +78,7 @@ export default function AuthProvider({ children }) {
         
         await signInWithEmailAndPassword(firebaseAuth, email, password)
         .then( async (value) => {
-            const docRef = doc(firebaseDb, "users", value.user.uid );
-            const docSnap = await getDoc(docRef);
-
-            setName(docSnap.data().nome);
-            setAvatarUrl(docSnap.data().avatarUrl);
-            storageUser(value);
-            setLoadingAuth(false);
+            getUserInfo(value);
 
             toast.success("Bem-vindo(a) ao sistema");
             autoredir("/dashboard");
@@ -97,7 +108,15 @@ export default function AuthProvider({ children }) {
                 avatarUrl: null,
             })
             .then( () => {
-                storageUser(value);
+                const dataObj = {
+                    uid: value.user.uid,
+                    name: name,
+                    email: email,
+                    avatarUrl: null
+                }
+                setUser(dataObj);
+                localStorage.setItem("@ticketsPRO", JSON.stringify(dataObj));
+
                 toast.info("Lembre de confirmar seu e-mail antes de entrar");
                 autoredir("/login");
             })
@@ -114,17 +133,6 @@ export default function AuthProvider({ children }) {
         })
     };
 
-    const storageUser = (data) => {
-        const dataObj = {
-            uid: data.user.uid,
-            nome: name,
-            email: data.user.email,
-            avatarUrl: avatarUrl
-        }
-        setUser(dataObj);
-        localStorage.setItem("@ticketsPRO", JSON.stringify(dataObj));
-    }
-
     const deleteUser = () => {
         localStorage.clear();
         setUser(null);
@@ -140,6 +148,7 @@ export default function AuthProvider({ children }) {
 
                 name, setName,
                 createAccount,
+                avatarUrl, setAvatarUrl,
 
                 user, setUser,
                 deleteUser,
