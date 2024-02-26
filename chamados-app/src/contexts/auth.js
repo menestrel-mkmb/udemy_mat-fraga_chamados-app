@@ -9,7 +9,7 @@ import {
     signInWithEmailAndPassword
 } from "firebase/auth";
 import { firebaseAuth, firebaseDb } from "../services/firebaseConfig";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 import { toast } from 'react-toastify';
 
@@ -20,6 +20,7 @@ export default function AuthProvider({ children }) {
     const [password, setPassword] = useState('');
     
     const [name, setName] = useState('');
+    const [avatarUrl, setAvatarUrl] = useState('');
     
     const [user, setUser] = useState({});
     const [loadingAuth, setLoadingAuth] = useState(false);
@@ -37,18 +38,22 @@ export default function AuthProvider({ children }) {
         }
         
         await signInWithEmailAndPassword(firebaseAuth, email, password)
-        .then( (value) => {
+        .then( async (value) => {
+            const docRef = doc(firebaseDb, "users", `${value.user.uid}` );
+
+            const docSnap = await getDoc(docRef);
+            setName(docSnap.data().nome);
+            setAvatarUrl(docSnap.data().avatarUrl);
             storageUser(value);
             setLoadingAuth(false);
 
-            console.log(user);
             toast.success("Bem-vindo(a) ao sistema");
             autoredir("/dashboard");
         })
         .catch( (reason) => {
             setLoadingAuth(false);
 
-            console.log("Erro ao logar");
+            toast.error("Problema ao fazer login");
             console.log(reason);
         });
     }
@@ -89,7 +94,7 @@ export default function AuthProvider({ children }) {
             uid: data.user.uid,
             nome: name,
             email: data.user.email,
-            avatarUrl: null
+            avatarUrl: avatarUrl
         }
         setUser(dataObj);
         localStorage.setItem("@ticketsPRO", JSON.stringify(dataObj));
