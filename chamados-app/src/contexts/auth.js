@@ -22,7 +22,7 @@ export default function AuthProvider({ children }) {
     const [name, setName] = useState('');
     const [avatarUrl, setAvatarUrl] = useState('');
     
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState(null);
     const [loadingAuth, setLoadingAuth] = useState(false);
 
     const autoredir = useNavigate();
@@ -103,6 +103,7 @@ export default function AuthProvider({ children }) {
     return(
         <AuthContext.Provider 
             value={{
+                signed: !!user,
                 email, setEmail,
                 password, setPassword,
                 loginUser,
