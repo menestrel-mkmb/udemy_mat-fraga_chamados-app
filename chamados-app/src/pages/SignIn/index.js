@@ -10,7 +10,8 @@ export default function SignIn(){
         password, setPassword,
         loginUser,
 
-        loadingAuth
+        loadingAuth,
+        logginAttempt
     } = useContext(AuthContext);
 
     return(
@@ -30,6 +31,13 @@ export default function SignIn(){
                 >
                     Faça seu login na plataforma
                 </h2>
+                { logginAttempt &&
+                    <p
+                    >
+                        Não foi redirecionado? Clique 
+                        <Link to='/dashboard'>aqui</Link>
+                    </p>
+                }
                 <form
                     className={styles.login__forms}
                     onSubmit={loginUser}
