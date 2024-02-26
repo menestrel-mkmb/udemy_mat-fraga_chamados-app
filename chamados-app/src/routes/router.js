@@ -9,7 +9,6 @@ import PrivateRoute from './Private';
 export default function AppRoutes(){
     return(
     <Routes>
-        <Route path='/' element={<App />} />
         <Route path='/login' element={<SignIn />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/dashboard' element={ <PrivateRoute><Dashboard /></PrivateRoute>} />
