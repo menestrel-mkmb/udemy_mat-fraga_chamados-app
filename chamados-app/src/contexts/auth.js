@@ -1,5 +1,6 @@
 import {
     createContext,
+    useEffect,
     useState
 } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -24,8 +25,22 @@ export default function AuthProvider({ children }) {
     
     const [user, setUser] = useState(null);
     const [loadingAuth, setLoadingAuth] = useState(false);
+    const [loadingPage, setLoadingPage] = useState(true);
 
     const autoredir = useNavigate();
+
+    useEffect( () => {
+        const loadUser = async () => {
+            const userLocal = localStorage.getItem("@ticketsPRO");
+            if(userLocal){
+                const userParsed = JSON.parse(userLocal) || null;
+                if(userParsed) setUser(userParsed);
+            }
+        }
+        loadUser();
+
+        setLoadingPage(false);
+    }, []);
 
     const clearFields = () => {
         setEmail('');
@@ -110,6 +125,11 @@ export default function AuthProvider({ children }) {
         localStorage.setItem("@ticketsPRO", JSON.stringify(dataObj));
     }
 
+    const deleteUser = () => {
+        localStorage.clear();
+        setUser(null);
+    }
+
     return(
         <AuthContext.Provider 
             value={{
@@ -122,7 +142,9 @@ export default function AuthProvider({ children }) {
                 createAccount,
 
                 user, setUser,
+                deleteUser,
                 loadingAuth,
+                loadingPage,
             }}
         >
             { children }
