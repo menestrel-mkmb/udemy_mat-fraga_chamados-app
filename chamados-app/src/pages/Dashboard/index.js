@@ -7,7 +7,7 @@ import { AuthContext } from "../../contexts/auth";
 import { useNavigate } from "react-router-dom";
 
 export default function Dashboard(){
-    const { user, setUser } = useContext(AuthContext);
+    const { setUser } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const logout = async (e) => {

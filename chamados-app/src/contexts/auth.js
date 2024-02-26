@@ -27,6 +27,13 @@ export default function AuthProvider({ children }) {
 
     const autoredir = useNavigate();
 
+    const clearFields = () => {
+        setEmail('');
+        setPassword('');
+        setName('');
+        setUser(null);
+    }
+
     const loginUser = async (e) => {
         e.preventDefault();
         setLoadingAuth(true);
@@ -39,9 +46,9 @@ export default function AuthProvider({ children }) {
         
         await signInWithEmailAndPassword(firebaseAuth, email, password)
         .then( async (value) => {
-            const docRef = doc(firebaseDb, "users", `${value.user.uid}` );
-
+            const docRef = doc(firebaseDb, "users", value.user.uid );
             const docSnap = await getDoc(docRef);
+
             setName(docSnap.data().nome);
             setAvatarUrl(docSnap.data().avatarUrl);
             storageUser(value);
@@ -51,10 +58,11 @@ export default function AuthProvider({ children }) {
             autoredir("/dashboard");
         })
         .catch( (reason) => {
-            setLoadingAuth(false);
-
             toast.error("Problema ao fazer login");
+            setLoadingAuth(false);
             console.log(reason);
+            
+            clearFields();
         });
     }
 
@@ -81,11 +89,13 @@ export default function AuthProvider({ children }) {
             .catch( (reason) => {
                 console.log("Erro ao criar dados do usuário");
                 console.log(reason);
+                clearFields();
             })
         })
         .catch( (reason) => {
             console.log("Erro ao criar a conta");
             console.log(reason);
+            clearFields();
         })
     };
 
