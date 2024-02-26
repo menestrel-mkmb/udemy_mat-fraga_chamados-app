@@ -7,13 +7,13 @@ import { AuthContext } from "../../contexts/auth";
 import { useNavigate } from "react-router-dom";
 
 export default function Dashboard(){
-    const { setUser } = useContext(AuthContext);
+    const { deleteUser } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const logout = async (e) => {
         e.preventDefault();
         signOut(firebaseAuth);
-        setUser(null);
+        deleteUser();
         navigate('/login');
     }
 
