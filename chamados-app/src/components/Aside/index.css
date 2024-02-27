@@ -37,7 +37,6 @@
 
 .avatar__caption {
     font-weight: 700;
-    height: 2rem;
 }
 
 .nav__ul {
@@ -83,4 +82,29 @@
 
 .li__lnk:visited {
     text-decoration: none;
+}
+
+@media screen and (max-width: 700px) {
+    .aside {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+
+        position: relative;
+
+        height: 2rem;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .nav__ul {
+        flex-direction: row;
+        width: max-content;
+    }
+
+    .avatar__div {
+        display: none;
+    }
 }
