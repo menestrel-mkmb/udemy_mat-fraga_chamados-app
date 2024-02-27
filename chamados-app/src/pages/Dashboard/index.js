@@ -5,8 +5,8 @@ import { useContext } from "react";
 import { AuthContext } from "../../contexts/auth";
 
 import { useNavigate } from "react-router-dom";
-import Aside from "../../components/Aside";
 import "./index.css";
+import Wrapper from "../../components/Wrapper";
 
 export default function Dashboard(){
     const { deleteUser } = useContext(AuthContext);
@@ -20,14 +20,15 @@ export default function Dashboard(){
     }
 
     return(
-    <>
-        <Aside />
+    <Wrapper
+        className="wrapper"
+    >
         <main
             className="main"
         >
             <h2>Dashboard</h2>
             <button onClick={e => logout(e)}>Sair</button>
         </main>
-    </>
+    </Wrapper>
     );
 }

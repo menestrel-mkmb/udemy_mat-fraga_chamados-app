@@ -1,13 +1,14 @@
-import Aside from "../../components/Aside";
+import Wrapper from "../../components/Wrapper";
 
 export default function Profile(){
     return(
-    <>
-    <Aside />
-    <main
-        className="main"
+    <Wrapper
+        className="wrapper"
     >
-        <h2>Profile page</h2>
-    </main>
-    </>);
+        <main
+            className="main"
+        >
+            <h2>Profile page</h2>
+        </main>
+    </Wrapper>);
 }
