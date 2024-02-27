@@ -10,9 +10,11 @@ import Error from '../pages/Error';
 export default function AppRoutes(){
     return(
     <Routes>
+        <Route path='/' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+        <Route path='/dashboard' element={ <PrivateRoute><Dashboard /></PrivateRoute>} />
+        
         <Route path='/login' element={<SignIn />} />
         <Route path='/signup' element={<SignUp />} />
-        <Route path='/dashboard' element={ <PrivateRoute><Dashboard /></PrivateRoute>} />
         
         <Route path='*' element={<Error />} />
     </Routes>

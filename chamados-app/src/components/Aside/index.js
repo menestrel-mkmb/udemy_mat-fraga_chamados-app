@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/auth";
 
+import { FiHome, FiUser, FiSettings } from 'react-icons/fi';
+
 export default function Aside(){
     const { user } = useContext(AuthContext);
 
@@ -21,13 +23,22 @@ export default function Aside(){
           <nav>
             <ul>
               <li>
-                <Link>Chamados</Link>
+                <Link to='/dashboard'>
+                  <FiHome color="#FFF" size={24} />
+                  Chamados
+                </Link>
               </li>
               <li>
-                <Link>Chamados</Link>
+                <Link to='/customers'>
+                  <FiUser color="#FFF" size={24} />
+                  Clientes
+                </Link>
               </li>
               <li>
-                <Link>Chamados</Link>
+                <Link to='/profile'>
+                  <FiSettings color="#FFF" size={24} />
+                  Configurações
+                </Link>
               </li>
             </ul>
           </nav>
