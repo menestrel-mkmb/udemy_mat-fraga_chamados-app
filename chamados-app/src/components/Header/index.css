@@ -1,0 +1,36 @@
+.header {
+    background-color: var(--color-black);
+    color: var(--color-white);
+
+    padding: .2rem .5rem;
+}
+
+.menu__nav {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+
+    padding: 0 .5rem;
+}
+
+.menu__lnk {
+    background-color: var(--color-black);
+    border-radius: .2rem;
+    color: var(--color-white);
+
+    padding: .2rem .5rem;
+
+    transition: all 300ms;
+}
+
+.menu__lnk:hover {
+    background-color: var(--color-white);
+    color: var(--color-black);
+}
+
+.menu__lnk:visited {
+    text-decoration: none;
+}
