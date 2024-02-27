@@ -6,7 +6,7 @@ import SignIn from '../pages/SignIn';
 import PrivateRoute from './Private';
 
 import Error from '../pages/Error';
-import Costumers from '../pages/Costumers';
+import Customers from '../pages/Customers';
 import Profile from '../pages/Profile';
 
 export default function AppRoutes(){
@@ -14,7 +14,7 @@ export default function AppRoutes(){
     <Routes>
         <Route path='/' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
         <Route path='/dashboard' element={ <PrivateRoute><Dashboard /></PrivateRoute>} />
-        <Route path='/costumers' element={ <PrivateRoute><Costumers /></PrivateRoute>} />
+        <Route path='/customers' element={ <PrivateRoute><Customers /></PrivateRoute>} />
         <Route path='/profile' element={ <PrivateRoute><Profile /></PrivateRoute>} />
         
         <Route path='/login' element={<SignIn />} />
