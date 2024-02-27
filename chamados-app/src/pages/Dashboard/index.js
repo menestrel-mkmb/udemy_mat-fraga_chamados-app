@@ -6,6 +6,7 @@ import { AuthContext } from "../../contexts/auth";
 
 import { useNavigate } from "react-router-dom";
 import Aside from "../../components/Aside";
+import "./index.css";
 
 export default function Dashboard(){
     const { deleteUser } = useContext(AuthContext);
@@ -21,7 +22,9 @@ export default function Dashboard(){
     return(
     <>
         <Aside />
-        <main>
+        <main
+            className="main"
+        >
             <h2>Dashboard</h2>
             <button onClick={e => logout(e)}>Sair</button>
         </main>
