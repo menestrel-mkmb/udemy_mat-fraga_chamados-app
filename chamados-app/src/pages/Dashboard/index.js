@@ -6,8 +6,11 @@ import { AuthContext } from "../../contexts/auth";
 
 import { useNavigate } from "react-router-dom";
 import "./index.css";
+
 import Wrapper from "../../components/Wrapper";
+
 import Title from "../../components/Title";
+import { FiHome } from "react-icons/fi";
 
 export default function Dashboard(){
     const { deleteUser } = useContext(AuthContext);
@@ -27,7 +30,10 @@ export default function Dashboard(){
         <main
             className="main"
         >
-            <Title>Dashboard</Title>
+            <Title>
+                <FiHome color="#FFF" size={24} />
+                Dashboard
+            </Title>
             <button onClick={e => logout(e)}>Sair</button>
         </main>
     </Wrapper>

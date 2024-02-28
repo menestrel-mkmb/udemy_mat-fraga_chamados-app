@@ -1,11 +1,15 @@
 .title {
-    background-color: var(--color-white);
+    background-color: var(--color-dark-blue);
     border-radius: .5rem;
-    color: var(--color-black);
+    color: var(--color-white);
 
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: .5rem;
 
+    margin: .5rem;
     padding: 1rem 2rem;
 }
