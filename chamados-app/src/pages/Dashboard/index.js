@@ -7,6 +7,7 @@ import { AuthContext } from "../../contexts/auth";
 import { useNavigate } from "react-router-dom";
 import "./index.css";
 import Wrapper from "../../components/Wrapper";
+import Title from "../../components/Title";
 
 export default function Dashboard(){
     const { deleteUser } = useContext(AuthContext);
@@ -26,7 +27,7 @@ export default function Dashboard(){
         <main
             className="main"
         >
-            <h2>Dashboard</h2>
+            <Title>Dashboard</Title>
             <button onClick={e => logout(e)}>Sair</button>
         </main>
     </Wrapper>

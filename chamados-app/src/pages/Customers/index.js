@@ -1,4 +1,6 @@
+import Title from "../../components/Title";
 import Wrapper from "../../components/Wrapper";
+import { FiUser } from "react-icons/fi";
 
 export default function Customers(){
     return(
@@ -8,7 +10,10 @@ export default function Customers(){
         <main
             className="main"
         >
-            <h2>Customers page</h2>
+            <Title>
+                <FiUser size={24} color="#FFF" />
+                Customers
+            </Title>
         </main>
     </Wrapper>);
 }

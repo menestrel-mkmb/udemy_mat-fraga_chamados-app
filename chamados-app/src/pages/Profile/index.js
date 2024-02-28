@@ -1,4 +1,6 @@
+import Title from "../../components/Title";
 import Wrapper from "../../components/Wrapper";
+import { FiSettings } from "react-icons/fi";
 
 export default function Profile(){
     return(
@@ -8,7 +10,10 @@ export default function Profile(){
         <main
             className="main"
         >
-            <h2>Profile page</h2>
+            <Title>
+                <FiSettings size={24} color="#FFF" />
+                Profile
+            </Title>
         </main>
     </Wrapper>);
 }
