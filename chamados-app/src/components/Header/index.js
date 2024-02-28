@@ -1,7 +1,22 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/auth";
+
+import { Link, useNavigate } from "react-router-dom";
 import "./index.css";
 
+import { signOut } from "firebase/auth";
+import { firebaseAuth } from "../../services/firebaseConfig";
+
 export default function Header(){
+  const { deleteUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const logout = async (e) => {
+      e.preventDefault();
+      signOut(firebaseAuth);
+      deleteUser();
+      navigate('/login');
+  }
 
   return(
   <header
@@ -29,6 +44,12 @@ export default function Header(){
         Cadastrar
       </Link>
     </nav>
+    <button
+      className="logout__btn"
+      onClick={e => logout(e)}
+    >
+      Sair
+    </button>
   </header>
   );
 }
