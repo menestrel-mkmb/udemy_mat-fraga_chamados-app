@@ -1,0 +1,67 @@
+.form,
+.profile-logout__sect {
+    background-color: var(--color-white);
+    border-radius: 1rem;
+
+    gap: 1rem;
+
+    padding: 1rem 2rem;
+}
+
+.form,
+.inp__sect,
+.profile-logout__sect {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.inp__sect {
+    gap: .5rem;
+}
+
+.inp__lbl {
+    font-size: 1.62rem;
+}
+
+.inp {
+    background-color: var(--color-plain-white);
+    border: 0;
+    border-radius: .25rem;
+    font-size: 1rem;
+
+    padding: .5rem 1rem;
+}
+
+.form__btn {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-dark-blue);
+    border-radius: .5rem;
+    color: var(--color-dark-blue);
+    font-size: 1rem;
+
+    padding: 1rem 2rem;
+}
+
+.form__btn:hover,
+.profile-logout__btn:hover {
+    background-color: var(--color-dark-blue);
+    border: 1px solid var(--color-white);
+    color: var(--color-white);
+}
+
+.feature-btn {
+    background-color: var(--color-plain-white);
+}
+
+.profile-logout__btn {
+    background-color: var(--color-plain-white);
+    border: 1px solid var(--color-dark-blue);
+    border-radius: .5rem;
+    color: var(--color-dark-blue);
+
+    padding: 1rem 2rem;
+    width: fit-content;
+}
