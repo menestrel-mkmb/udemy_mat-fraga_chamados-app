@@ -4,6 +4,7 @@ import { FiSettings } from "react-icons/fi";
 
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/auth";
+import "./index.css";
 
 export default function Profile(){
     const { avatarUrl, setAvatarUrl,
@@ -35,10 +36,11 @@ export default function Profile(){
             className="main"
         >
             <Title>
-                <FiSettings size={24} color="#FFF" />
-                Profile
+                <FiSettings size={24} />
+                Perfil do Usuário
             </Title>
             <form
+                className="form"
                 onSubmit={e=>saveProfile(e)}
             >
                 <section
@@ -55,12 +57,14 @@ export default function Profile(){
                     className="inp__sect name__sect"
                 >
                     <label
-                        className="name__lbl"
+                        className="inp__lbl name__lbl"
                     >
-                        Name
+                        Nome
                     </label>
                     <input
-                        className="name__inp"
+                        className="inp name__inp"
+                        type="text"
+                        placeholder="Digite aqui seu nome"
                         value={name}
                         onChange={e=>setName(e.target.value)}
                     />
@@ -69,17 +73,20 @@ export default function Profile(){
                     className="inp__sect email__sect"
                 >
                     <label
-                        className="email__lbl"
+                        className="inp__lbl email__lbl"
                     >
-                        Email
+                        E-mail
                     </label>
                     <input
-                        className="email__inp"
+                        className="inp email__inp"
+                        type="email"
+                        placeholder="Digite aqui seu e-mail"
                         value={email}
                         onChange={e=>setEmail(e.target.value)}
                     />
                 </section>
                 <button
+                    className="form__btn feature-btn submit__btn"
                     type="submit"
                 >
                     Salvar
