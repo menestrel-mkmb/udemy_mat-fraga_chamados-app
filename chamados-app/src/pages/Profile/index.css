@@ -18,6 +18,49 @@
     align-items: flex-start;
 }
 
+.profile-avatar__sect {
+    position: relative;
+}
+
+.profile-avatar__icon {
+    position: absolute;
+    top: 55%;
+    left: 45%;
+
+    z-index: 2;
+}
+
+.profile-avatar__txt {
+    color: var(--color-white);
+    font-size: .62rem;
+    font-weight: 700;
+    filter: drop-shadow(2px 2px 4px var(--color-black));
+
+    position: absolute;
+    top: 45%;
+    left: 15%;
+
+    z-index: 2;
+}
+
+.profile-avatar__img {
+    background-color: var(--color-plain-white);
+    border: 2px solid var(--color-plain-white);
+    border-radius: 50%;
+    filter: brightness(.5) blur(1px);
+    -webkit-filter: brightness(.5) blur-shadow(1px);
+
+    cursor: pointer;
+    z-index: 1;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    height: 200px;
+    width: 200px;
+}
+
 .inp__sect {
     gap: .5rem;
 }
