@@ -14,7 +14,7 @@ export default function Dashboard(){
             className="main"
         >
             <Title>
-                <FiHome color="#FFF" size={24} />
+                <FiHome size={24} />
                 Dashboard
             </Title>
         </main>

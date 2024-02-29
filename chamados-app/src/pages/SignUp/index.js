@@ -48,7 +48,7 @@ export default function SignUp(){
                         <input
                             className={styles.name__inp}
                             type="text"
-                            placeholder="Fulano Cicrano Beltrano"
+                            placeholder="Digite aqui seu nome"
                             value={name}
                             onChange={e=>setName(e.target.value)}
                         />
@@ -64,7 +64,7 @@ export default function SignUp(){
                         <input
                             className={styles.email__inp}
                             type="email"
-                            placeholder="you@mail.tld"
+                            placeholder="Digite aqui seu e-mail"
                             value={email}
                             onChange={e=>setEmail(e.target.value)}
                         />

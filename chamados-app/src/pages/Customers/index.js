@@ -11,7 +11,7 @@ export default function Customers(){
             className="main"
         >
             <Title>
-                <FiUser size={24} color="#FFF" />
+                <FiUser size={24} />
                 Customers
             </Title>
         </main>
