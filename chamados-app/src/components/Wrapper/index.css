@@ -1,10 +1,11 @@
 .wrapper {
-    margin-left: 12rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
 }
 
 @media screen and (max-width:700px) {
-
     .wrapper {
-        margin-left: 0;
+        flex-direction: column;
     }
 }
