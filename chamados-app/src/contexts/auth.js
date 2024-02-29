@@ -1,5 +1,6 @@
 import {
     createContext,
+    useCallback,
     useEffect,
     useState
 } from 'react';
@@ -30,13 +31,7 @@ export default function AuthProvider({ children }) {
 
     const autoredir = useNavigate();
 
-    useEffect( () => {
-        loadUser();
-
-        setLoadingPage(false);
-    }, []);
-
-    const loadUser = async () => {
+    const loadUser = useCallback(async () => {
         const userLocal = localStorage.getItem("@ticketsPRO");
         if(userLocal){
             const userParsed = JSON.parse(userLocal) || null;
@@ -48,7 +43,7 @@ export default function AuthProvider({ children }) {
                 setAvatarUrl(user.avatarUrl);
             }
         }
-    }
+    }, [user]);
 
     const getUserInfo = async (value) => {
         const docRef = doc(firebaseDb, "users", value.user.uid );
@@ -146,6 +141,12 @@ export default function AuthProvider({ children }) {
         localStorage.clear();
         setUser(null);
     }
+
+    useEffect( () => {
+        if(!user) loadUser();
+
+        setLoadingPage(false);
+    }, [loadUser]);
 
     return(
         <AuthContext.Provider 

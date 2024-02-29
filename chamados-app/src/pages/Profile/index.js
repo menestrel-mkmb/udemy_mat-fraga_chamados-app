@@ -2,15 +2,17 @@ import Title from "../../components/Title";
 import Wrapper from "../../components/Wrapper";
 import { FiUpload, FiSettings } from "react-icons/fi";
 
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/auth";
 import "./index.css";
 
 export default function Profile(){
+    const [infoDropped, setInfoDropped] = useState(false);
     const { avatarUrl, setAvatarUrl,
             name, setName,
             email, setEmail,
 
+            user,
             loadUser
     } = useContext(AuthContext);
     
@@ -18,8 +20,10 @@ export default function Profile(){
         const load = async () => {
             await loadUser();
         }
-        load();
-    }, []);
+        
+        if(!infoDropped && user) load();
+        setInfoDropped(true);
+    }, [loadUser]);
 
     const changeAvatar = (e) => {
         e.preventDefault();
