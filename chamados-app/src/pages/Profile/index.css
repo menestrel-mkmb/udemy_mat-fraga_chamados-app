@@ -66,6 +66,13 @@
 
     height: 200px;
     width: 200px;
+
+    transition: all 500ms;
+}
+
+.profile-avatar__img:hover {
+    filter: brightness(.9) blur(0);
+    -webkit-filter: brightness(.9) blur-shadow(0);
 }
 
 .inp__sect:not(.profile-avatar__sect) {

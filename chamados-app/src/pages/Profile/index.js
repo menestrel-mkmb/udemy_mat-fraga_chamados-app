@@ -133,5 +133,6 @@ export default function Profile(){
                 </button>
             </section>
         </Main>
-    </Wrapper>);
+    </Wrapper>
+    );
 }
