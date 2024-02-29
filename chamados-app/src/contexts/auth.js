@@ -27,7 +27,7 @@ export default function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
     const [loadingAuth, setLoadingAuth] = useState(false);
     const [loadingPage, setLoadingPage] = useState(true);
-    const [logginAttempt, setLogginAttempt] = useState(false);
+    const [loginAttempt, setLoginAttempt] = useState(false);
 
     const autoredir = useNavigate();
 
@@ -78,7 +78,7 @@ export default function AuthProvider({ children }) {
             setLoadingAuth(false);
         }
 
-        setLogginAttempt(true);
+        setLoginAttempt(true);
         
         await signInWithEmailAndPassword(firebaseAuth, email, password)
         .then( async (value) => {
@@ -146,7 +146,7 @@ export default function AuthProvider({ children }) {
         if(!user) loadUser();
 
         setLoadingPage(false);
-    }, [loadUser]);
+    }, [user, loadUser]);
 
     return(
         <AuthContext.Provider 
@@ -164,7 +164,7 @@ export default function AuthProvider({ children }) {
                 deleteUser,
                 loadingAuth,
                 loadingPage,
-                logginAttempt,
+                loginAttempt,
             }}
         >
             { children }
