@@ -1,3 +1,4 @@
+import Main from "../../components/Main";
 import Title from "../../components/Title";
 import Wrapper from "../../components/Wrapper";
 import { FiUser } from "react-icons/fi";
@@ -7,13 +8,13 @@ export default function Customers(){
         <Wrapper
         className="wrapper"
     >
-        <main
-            className="main"
+        <Main
+            classes="main main__sect"
         >
             <Title>
                 <FiUser size={24} />
                 Customers
             </Title>
-        </main>
+        </Main>
     </Wrapper>);
 }

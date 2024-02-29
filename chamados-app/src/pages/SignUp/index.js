@@ -1,8 +1,9 @@
-import { useContext } from "react";
 import { Link } from "react-router-dom";
+import "./index.css";
 
-import styles from "./index.module.css";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../../contexts/auth";
+import Main from "../../components/Main";
 
 export default function SignUp(){
     const {
@@ -12,41 +13,47 @@ export default function SignUp(){
         password, setPassword,
         createAccount,
 
-        loadingAuth
+        loadingAuth,
+        signed, deleteUser,
+        loginAttempt
     } = useContext(AuthContext);
+
+    useEffect(() => {
+        if(signed && !loginAttempt) deleteUser();
+    }, [deleteUser, loginAttempt, signed]);
     
 
     return(
-        <main
-            className={styles.signup}
+        <Main
+            classes="main main__sect signup"
         >
             <article
-                className={styles.signup__artc}
+                className="signup__artc"
             >
                 <img
-                    className={styles.signup__img}
+                    className="signup__img"
                     src="../../../assets/imgs/logo.png"
                     alt=" "
                 />
                 <h2
-                    className={styles.signup__title}
+                    className="signup__title"
                 >
                     Faça seu cadastro na plataforma
                 </h2>
                 <form
-                    className={styles.signup__forms}
+                    className="signup__forms"
                     onSubmit={e => {createAccount(e)}}
                 >
                     <section
-                        className={styles.name__sect}
+                        className="name__sect"
                     >
                         <label
-                            className={styles.name__lbl}
+                            className="name__lbl"
                         >
                             nome
                         </label>
                         <input
-                            className={styles.name__inp}
+                            className="name__inp"
                             type="text"
                             placeholder="Digite aqui seu nome"
                             value={name}
@@ -54,15 +61,15 @@ export default function SignUp(){
                         />
                     </section>
                     <section
-                        className={styles.email__sect}
+                        className="email__sect"
                     >
                         <label
-                            className={styles.email__lbl}
+                            className="email__lbl"
                         >
                             e-mail
                         </label>
                         <input
-                            className={styles.email__inp}
+                            className="email__inp"
                             type="email"
                             placeholder="Digite aqui seu e-mail"
                             value={email}
@@ -70,15 +77,15 @@ export default function SignUp(){
                         />
                     </section>
                     <section
-                        className={styles.password__sect}
+                        className="password__sect"
                     >
                         <label
-                            className={styles.password__lbl}
+                            className="password__lbl"
                         >
                             password
                         </label>
                         <input
-                            className={styles.password__inp}
+                            className="password__inp"
                             type="password"
                             placeholder="********"
                             value={password}
@@ -86,7 +93,7 @@ export default function SignUp(){
                         />
                     </section>
                     <button
-                        className={styles.signup__btn}
+                        className="signup__btn"
                         type="submit"
                     >
                         {loadingAuth ?
@@ -94,13 +101,13 @@ export default function SignUp(){
                         "Cadastrar"}
                     </button>
                     <Link
-                        className={styles.register__lnk}
+                        className="register__lnk"
                         to='/login'
                     >
                         Já possui uma conta? Faça login
                     </Link>
                 </form>
             </article>
-        </main>
+        </Main>
     )
 }

@@ -1,5 +1,6 @@
-import Title from "../../components/Title";
 import Wrapper from "../../components/Wrapper";
+import Main from "../../components/Main";
+import Title from "../../components/Title";
 import { FiUpload, FiSettings } from "react-icons/fi";
 
 import { useContext, useEffect, useState } from "react";
@@ -8,6 +9,7 @@ import "./index.css";
 
 export default function Profile(){
     const [infoDropped, setInfoDropped] = useState(false);
+
     const { avatarUrl, setAvatarUrl,
             name, setName,
             email, setEmail,
@@ -23,7 +25,7 @@ export default function Profile(){
         
         if(!infoDropped && user) load();
         setInfoDropped(true);
-    }, [loadUser]);
+    }, [user, loadUser, infoDropped, setInfoDropped]);
 
     const changeAvatar = (e) => {
         e.preventDefault();
@@ -45,8 +47,8 @@ export default function Profile(){
     <Wrapper
         className="wrapper"
     >
-        <main
-            className="main"
+        <Main
+            classes="main main__sect"
         >
             <Title>
                 <FiSettings size={24} />
@@ -130,6 +132,6 @@ export default function Profile(){
                     Sair da sua conta
                 </button>
             </section>
-        </main>
+        </Main>
     </Wrapper>);
 }

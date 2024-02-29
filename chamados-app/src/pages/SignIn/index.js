@@ -1,58 +1,64 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import styles from "./index.module.css";
+import "./index.css";
 
 import { AuthContext } from "../../contexts/auth";
+import Main from "../../components/Main";
 
 export default function SignIn(){
     const { 
         email, setEmail,
         password, setPassword,
-        loginUser,
+        loginUser, signed,
+        deleteUser,
 
         loadingAuth,
-        logginAttempt
+        loginAttempt
     } = useContext(AuthContext);
 
+    useEffect(() => {
+        if(signed && !loginAttempt) deleteUser();
+    }, [deleteUser, loginAttempt, signed]);
+
     return(
-        <main
-            className={styles.login}
+        <Main
+            classes="main main__sect login"
         >
             <article
-                className={styles.login__artc}
+                className="login__artc"
             >
                 <img
-                    className={styles.login__img}
+                    className="login__img"
                     src="../../../assets/imgs/logo.png"
                     alt=" "
                 />
                 <h2
-                    className={styles.login__title}
+                    className="login__title"
                 >
                     Faça seu login na plataforma
                 </h2>
-                { logginAttempt &&
+                { loginAttempt &&
                     <p
-                        className={styles.redirect__txt}
+                        className="redirect__txt"
                     >
                         Não foi redirecionado? Clique 
                         <Link to='/dashboard'> aqui</Link>
                     </p>
                 }
                 <form
-                    className={styles.login__forms}
+                    className="login__forms"
                     onSubmit={loginUser}
                 >
                     <section
-                        className={styles.email__sect}
+                        className="email__sect"
                     >
                         <label
-                            className={styles.email__lbl}
+                            className="email__lbl"
                         >
                             e-mail
                         </label>
                         <input
-                            className={styles.email__inp}
+                            className="email__inp"
                             type="email"
                             placeholder="you@mail.tld"
                             value={email}
@@ -60,15 +66,15 @@ export default function SignIn(){
                         />
                     </section>
                     <section
-                        className={styles.password__sect}
+                        className="password__sect"
                     >
                         <label
-                            className={styles.password__lbl}
+                            className="password__lbl"
                         >
                             password
                         </label>
                         <input
-                            className={styles.password__inp}
+                            className="password__inp"
                             type="password"
                             placeholder="********"
                             value={password}
@@ -76,7 +82,7 @@ export default function SignIn(){
                         />
                     </section>
                     <button
-                        className={styles.login__btn}
+                        className="login__btn"
                         type="submit"
                     >
                         {loadingAuth ?
@@ -84,13 +90,13 @@ export default function SignIn(){
                             "Entrar"}
                     </button>
                     <Link
-                        className={styles.register__lnk}
+                        className="register__lnk"
                         to='/signup'
                     >
                         Criar uma conta
                     </Link>
                 </form>
             </article>
-        </main>
+        </Main>
     )
 }
