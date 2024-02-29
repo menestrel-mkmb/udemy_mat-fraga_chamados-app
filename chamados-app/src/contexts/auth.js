@@ -41,6 +41,12 @@ export default function AuthProvider({ children }) {
         if(userLocal){
             const userParsed = JSON.parse(userLocal) || null;
             setUser(userParsed);
+
+            if(user){
+                setName(user.name);
+                setEmail(user.email);
+                setAvatarUrl(user.avatarUrl);
+            }
         }
     }
 
@@ -147,7 +153,7 @@ export default function AuthProvider({ children }) {
                 signed: !!user,
                 email, setEmail,
                 password, setPassword,
-                loginUser,
+                loginUser, loadUser,
 
                 name, setName,
                 createAccount,
