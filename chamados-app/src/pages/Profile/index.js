@@ -1,6 +1,6 @@
 import Title from "../../components/Title";
 import Wrapper from "../../components/Wrapper";
-import { FiSettings } from "react-icons/fi";
+import { FiUpload, FiSettings } from "react-icons/fi";
 
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/auth";
@@ -44,13 +44,23 @@ export default function Profile(){
                 onSubmit={e=>saveProfile(e)}
             >
                 <section
-                    className="inp__sect change-avatar__sect"
+                    className="inp__sect profile-avatar__sect"
                     onClick={e=>changeAvatar(e)}
                 >
+                    <span
+                        className="profile-avatar__txt"
+                    >
+                        Clique para alterar sua foto
+                    </span>
+                    <FiUpload
+                        className="profile-avatar__icon"
+                        color="#fefefe"
+                        size={24}
+                    />
                     <img
-                        className="change-avatar__img"
+                        className="profile-avatar__img"
                         alt='Sua foto de perfil'
-                        src={avatarUrl}
+                        src={avatarUrl ?? "./assets/imgs/avatar.png"}
                     />
                 </section>
                 <section
