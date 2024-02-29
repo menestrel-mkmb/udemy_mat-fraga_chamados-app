@@ -62,20 +62,29 @@ export default function Profile(){
                     className="inp__sect profile-avatar__sect"
                     onClick={e=>changeAvatar(e)}
                 >
-                    <span
-                        className="profile-avatar__txt"
+                    <section
+                        className="profile-avatar__img--sect"
                     >
-                        Clique para alterar sua foto
-                    </span>
-                    <FiUpload
-                        className="profile-avatar__icon"
-                        color="#fefefe"
-                        size={24}
-                    />
-                    <img
-                        className="profile-avatar__img"
-                        alt='Sua foto de perfil'
-                        src={avatarUrl ?? "./assets/imgs/avatar.png"}
+                        <span
+                            className="profile-avatar__txt"
+                        >
+                            Clique para alterar sua foto
+                        </span>
+                        <FiUpload
+                            className="profile-avatar__icon"
+                            color="#fefefe"
+                            size={24}
+                        />
+                        <img
+                            className="profile-avatar__img"
+                            alt='Sua foto de perfil'
+                            src={avatarUrl ?? "./assets/imgs/avatar.png"}
+                        />
+                    </section>
+                    <input
+                        className="profile-avatar__inp"
+                        type="file"
+                        accept="image/*"
                     />
                 </section>
                 <section
@@ -125,11 +134,15 @@ export default function Profile(){
                 >
                     Não é você?
                 </h3>
+                <span>
+                    Entrou em um computador público/compartilhado e essa pessoa não é você? 
+                    Você pode sair dessa conta e entra na sua.
+                </span>
                 <button
                     className="profile-logout__btn"
                     onClick={e=>logout(e)}
                 >
-                    Sair da sua conta
+                    Entrar com outra conta
                 </button>
             </section>
         </Main>
