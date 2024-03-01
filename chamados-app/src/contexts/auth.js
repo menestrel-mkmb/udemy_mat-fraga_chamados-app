@@ -85,21 +85,39 @@ export default function AuthProvider({ children }) {
         e.preventDefault();
 
         const docRef = ref(firebaseStorage, `images/${user.uid}/${file.name}`);
-        const uploadTask = uploadBytes(docRef, file)
-        .then( () => {
-            toast.success("Foto enviada com sucesso");
-            // await getDownloadURL(docRef)
-            // .then( (url) => {
-            //     setAvatarUrl(url);
-            //     setUser({...user, avatarUrl: url});
-            //     toast.success("Foto atualizada com sucesso");
-            // })
-            // .catch( (reason) => {
-            //     toast.error("Problema ao atualizar imagem. Por favor, recarregue a página");
-            // })
+        uploadBytes(docRef, file)
+        .then( async (value) => {
+            toast.info("Foto enviada, aguarde processamento");
+            await getDownloadURL(docRef)
+            .then( async (url) => {
+                await updateAvatarUrl(e, url)
+                .then( () =>{
+                    toast.success("Foto atualizada no sistema");
+                });
+            })
+            .catch( (reason) => {
+                toast.error("Problema ao atualizar imagem. Por favor, recarregue a página");
+            })
         })
         .catch( (reason) => {
             toast.error("Problema ao enviar foto");
+        });
+    }
+
+    const updateAvatarUrl = async (e, avatarUrl) => {
+        e.preventDefault();
+        const docRef = doc(firebaseDb, "users", user.uid);
+        await updateDoc(docRef, {
+            avatarUrl: avatarUrl
+        })
+        .then( () => {
+            toast.success("URL atualizado com sucesso");
+            setAvatarUrl(avatarUrl);
+            setUser({...user, avatarUrl: avatarUrl});
+            localStorage.setItem("@ticketsPRO", JSON.stringify(user));
+        })
+        .catch( (reason) => {
+            toast.error("Problema ao atualizar nome");
         });
     }
     const updateName = async (e, newName) => {
@@ -112,6 +130,7 @@ export default function AuthProvider({ children }) {
             toast.success("Nome atualizado com sucesso");
             setName(newName);
             setUser({...user, name: newName});
+            localStorage.setItem("@ticketsPRO", JSON.stringify(user));
         })
         .catch( (reason) => {
             toast.error("Problema ao atualizar nome");

@@ -21,9 +21,8 @@ export default function Aside(){
             >
               <img
                 className="avatar__img"
-                src={user.avatarUrl === null ?
-                  "../../../assets/imgs/avatar.png" :
-                  user.avatarUrl}
+                src={user.avatarUrl ??
+                  "../../../assets/imgs/avatar.png"}
                 alt="Avatar/Foto do usuário"
               />
               <figcaption

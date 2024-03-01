@@ -23,13 +23,15 @@ export default function Profile(){
     useEffect( () => {
         const load = async () => {
             await loadUser();
+            await getUserInfoByUid(user.uid);
             setName(user.name);
             setEmail(user.email);
+            setAvatarUrl(user.avatarUrl);
         }
         
         if(!infoDropped && user) load();
         setInfoDropped(true);
-    }, [user, loadUser, infoDropped, setInfoDropped]);
+    }, [user, loadUser, setAvatarUrl, getUserInfoByUid, infoDropped, setInfoDropped]);
 
     const saveProfile = async (e) => {
         e.preventDefault();
@@ -39,7 +41,6 @@ export default function Profile(){
         if(imageAvatar){
             updateAvatar(e, imageAvatar);
         }
-        await getUserInfoByUid(user.uid);
     }
 
     const logout = (e) => {
@@ -84,7 +85,7 @@ export default function Profile(){
                     <img
                         className="profile-avatar__img"
                         alt='Sua foto de perfil'
-                        src={avatarUrl ?? "./assets/imgs/avatar.png"}
+                        src={avatarUrl ? avatarUrl : "./assets/imgs/avatar.png"}
                     />
                     <section
                         className="profile-avatar__sect"
