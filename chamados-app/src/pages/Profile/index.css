@@ -40,6 +40,9 @@
 
 .profile-avatar__img {
     border: 0;
+    object-fit: cover;
+
+    box-sizing: border-box;
 }
 
 .profile-avatar__sect,

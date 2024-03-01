@@ -11,8 +11,9 @@ export default function Profile(){
     const [infoDropped, setInfoDropped] = useState(false);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const [imageAvatar, setImageAvatar] = useState(null);
 
-    const { avatarUrl, // setAvatarUrl,
+    const { avatarUrl, setAvatarUrl,
             user, loadUser
     } = useContext(AuthContext);
     
@@ -35,6 +36,21 @@ export default function Profile(){
     const logout = (e) => {
         e.preventDefault();
         alert('Logout');
+    }
+
+    const getNewAvatar = (e) => {
+        e.preventDefault();
+
+        const newAvatar = e.target.files[0] || null;
+        if(!newAvatar ||
+            newAvatar.type === "image/jpeg" ||
+            newAvatar.type === "image/png" ) {
+            setImageAvatar(newAvatar);
+            setAvatarUrl(URL.createObjectURL(newAvatar));
+        } else {
+            setImageAvatar(null);
+            return;
+        }
     }
 
     return(
@@ -81,6 +97,7 @@ export default function Profile(){
                             style={{
                                 display: "none"
                             }}
+                            onChange={e=>getNewAvatar(e)}
                             type="file"
                             accept="image/*"
                         />
