@@ -15,7 +15,7 @@ export default function Profile(){
 
     const { avatarUrl, setAvatarUrl,
             updateName,
-            //updateAvatar,
+            updateAvatar,
             user, loadUser,
             getUserInfoByUid
     } = useContext(AuthContext);
@@ -37,7 +37,7 @@ export default function Profile(){
             updateName(e, name);
         }
         if(imageAvatar){
-            //updateAvatar(e, imageAvatar);
+            updateAvatar(e, imageAvatar);
         }
         await getUserInfoByUid(user.uid);
     }
