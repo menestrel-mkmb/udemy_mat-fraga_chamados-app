@@ -10,7 +10,8 @@ import "./index.css";
 export default function Profile(){
     const [infoDropped, setInfoDropped] = useState(false);
 
-    const { avatarUrl, setAvatarUrl,
+    const { avatarUrl,
+            // setAvatarUrl,
             name, setName,
             email, setEmail,
 
@@ -52,8 +53,9 @@ export default function Profile(){
                 className="form"
                 onSubmit={e=>saveProfile(e)}
             >
-                <section
-                    className="inp__sect profile-avatar__img--sect"
+                <label
+                    className="inp__sect profile-avatar__img--lbl"
+                    for="file--avatar__inp"
                 >
                     <img
                         className="profile-avatar__img"
@@ -66,19 +68,25 @@ export default function Profile(){
                         <span
                             className="profile-avatar__txt"
                         >
-                            Use o utilitário abaixo para mudar seu avatar
+                            Clique aqui para mudar seu avatar
                         </span>
                         <FiUpload
                             className="profile-avatar__icon"
                             size={24}
+                            color="#eaeaec"
                         />
                         <input
                             className="profile-avatar__inp"
+                            id="file--avatar__inp"
+                            name="file--avatar__inp"
+                            style={{
+                                display: "none"
+                            }}
                             type="file"
                             accept="image/*"
                         />
                     </section>
-                </section>
+                </label>
                 <section
                     className="inp__sect name__sect"
                 >
@@ -91,6 +99,8 @@ export default function Profile(){
                         className="inp name__inp"
                         type="text"
                         placeholder="Digite aqui seu nome"
+                        id="file--avatar__inp"
+                        name="file--avatar__inp"
                         value={name}
                         onChange={e=>setName(e.target.value)}
                     />
