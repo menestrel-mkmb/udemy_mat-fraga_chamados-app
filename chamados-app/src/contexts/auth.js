@@ -11,7 +11,7 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword
 } from "firebase/auth";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 
 import { toast } from 'react-toastify';
 
@@ -61,11 +61,39 @@ export default function AuthProvider({ children }) {
         setLoadingAuth(false);
     }
 
+    const getUserInfoByUid = async (uid) => {
+        const docRef = doc(firebaseDb, "users", uid );
+        const docSnap = await getDoc(docRef);
+
+        setUser({...user,
+            name: docSnap.data().nome,
+            avatarUrl: docSnap.data().avatarUrl
+        });
+        localStorage.setItem("@ticketsPRO", JSON.stringify(user));
+        setLoadingAuth(false);
+    }
+
     const clearFields = () => {
         setEmail('');
         setPassword('');
         setName('');
         setUser(null);
+    }
+
+    const updateName = async (e, newName) => {
+        e.preventDefault();
+        const docRef = doc(firebaseDb, "users", user.uid);
+        await updateDoc(docRef, {
+            nome: newName
+        })
+        .then( () => {
+            toast.success("Nome atualizado com sucesso");
+            setName(newName);
+            setUser({...user, name: newName});
+        })
+        .catch( (reason) => {
+            toast.error("Problema ao atualizar nome");
+        });
     }
 
     const loginUser = async (e) => {
@@ -152,6 +180,7 @@ export default function AuthProvider({ children }) {
         <AuthContext.Provider 
             value={{
                 signed: !!user,
+
                 email, setEmail,
                 password, setPassword,
                 loginUser, loadUser,
@@ -160,8 +189,14 @@ export default function AuthProvider({ children }) {
                 createAccount,
                 avatarUrl, setAvatarUrl,
 
+                //updateAvatar,
+                updateName,
+
                 user, setUser,
+                getUserInfo,
+                getUserInfoByUid,
                 deleteUser,
+
                 loadingAuth,
                 loadingPage,
                 loginAttempt,

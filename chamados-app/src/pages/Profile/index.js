@@ -14,7 +14,10 @@ export default function Profile(){
     const [imageAvatar, setImageAvatar] = useState(null);
 
     const { avatarUrl, setAvatarUrl,
-            user, loadUser
+            updateName,
+            //updateAvatar,
+            user, loadUser,
+            getUserInfoByUid
     } = useContext(AuthContext);
     
     useEffect( () => {
@@ -28,9 +31,15 @@ export default function Profile(){
         setInfoDropped(true);
     }, [user, loadUser, infoDropped, setInfoDropped]);
 
-    const saveProfile = (e) => {
+    const saveProfile = async (e) => {
         e.preventDefault();
-        alert('Save Profile');
+        if(!imageAvatar && name !== user.name){
+            updateName(e, name);
+        }
+        if(imageAvatar){
+            //updateAvatar(e, imageAvatar);
+        }
+        await getUserInfoByUid(user.uid);
     }
 
     const logout = (e) => {
@@ -70,7 +79,7 @@ export default function Profile(){
             >
                 <label
                     className="inp__sect profile-avatar__img--lbl"
-                    for="file--avatar__inp"
+                    htmlFor="file--avatar__inp"
                 >
                     <img
                         className="profile-avatar__img"
@@ -133,6 +142,7 @@ export default function Profile(){
                         className="inp email__inp"
                         type="email"
                         placeholder="Digite aqui seu e-mail"
+                        disabled={true}
                         value={email}
                         onChange={e=>setEmail(e.target.value)}
                     />
