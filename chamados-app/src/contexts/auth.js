@@ -6,12 +6,13 @@ import {
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { firebaseAuth, firebaseDb } from "../services/firebaseConfig";
+import { firebaseAuth, firebaseDb, firebaseStorage } from "../services/firebaseConfig";
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword
 } from "firebase/auth";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import { toast } from 'react-toastify';
 
@@ -80,6 +81,27 @@ export default function AuthProvider({ children }) {
         setUser(null);
     }
 
+    const updateAvatar = (e, file) => {
+        e.preventDefault();
+
+        const docRef = ref(firebaseStorage, `images/${user.uid}/${file.name}`);
+        const uploadTask = uploadBytes(docRef, file)
+        .then( () => {
+            toast.success("Foto enviada com sucesso");
+            // await getDownloadURL(docRef)
+            // .then( (url) => {
+            //     setAvatarUrl(url);
+            //     setUser({...user, avatarUrl: url});
+            //     toast.success("Foto atualizada com sucesso");
+            // })
+            // .catch( (reason) => {
+            //     toast.error("Problema ao atualizar imagem. Por favor, recarregue a página");
+            // })
+        })
+        .catch( (reason) => {
+            toast.error("Problema ao enviar foto");
+        });
+    }
     const updateName = async (e, newName) => {
         e.preventDefault();
         const docRef = doc(firebaseDb, "users", user.uid);
@@ -189,7 +211,7 @@ export default function AuthProvider({ children }) {
                 createAccount,
                 avatarUrl, setAvatarUrl,
 
-                //updateAvatar,
+                updateAvatar,
                 updateName,
 
                 user, setUser,
