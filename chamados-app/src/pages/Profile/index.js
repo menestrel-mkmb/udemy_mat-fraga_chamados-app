@@ -9,19 +9,18 @@ import "./index.css";
 
 export default function Profile(){
     const [infoDropped, setInfoDropped] = useState(false);
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
 
-    const { avatarUrl,
-            // setAvatarUrl,
-            name, setName,
-            email, setEmail,
-
-            user,
-            loadUser
+    const { avatarUrl, // setAvatarUrl,
+            user, loadUser
     } = useContext(AuthContext);
     
     useEffect( () => {
         const load = async () => {
             await loadUser();
+            setName(user.name);
+            setEmail(user.email);
         }
         
         if(!infoDropped && user) load();
