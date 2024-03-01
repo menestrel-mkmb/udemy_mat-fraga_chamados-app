@@ -27,12 +27,6 @@ export default function Profile(){
         setInfoDropped(true);
     }, [user, loadUser, infoDropped, setInfoDropped]);
 
-    const changeAvatar = (e) => {
-        e.preventDefault();
-        setAvatarUrl(null);
-        alert('Change Avatar');
-    }
-
     const saveProfile = (e) => {
         e.preventDefault();
         alert('Save Profile');
@@ -59,33 +53,31 @@ export default function Profile(){
                 onSubmit={e=>saveProfile(e)}
             >
                 <section
-                    className="inp__sect profile-avatar__sect"
-                    onClick={e=>changeAvatar(e)}
+                    className="inp__sect profile-avatar__img--sect"
                 >
+                    <img
+                        className="profile-avatar__img"
+                        alt='Sua foto de perfil'
+                        src={avatarUrl ?? "./assets/imgs/avatar.png"}
+                    />
                     <section
-                        className="profile-avatar__img--sect"
+                        className="profile-avatar__sect"
                     >
                         <span
                             className="profile-avatar__txt"
                         >
-                            Clique para alterar sua foto
+                            Use o utilitário abaixo para mudar seu avatar
                         </span>
                         <FiUpload
                             className="profile-avatar__icon"
-                            color="#fefefe"
                             size={24}
                         />
-                        <img
-                            className="profile-avatar__img"
-                            alt='Sua foto de perfil'
-                            src={avatarUrl ?? "./assets/imgs/avatar.png"}
+                        <input
+                            className="profile-avatar__inp"
+                            type="file"
+                            accept="image/*"
                         />
                     </section>
-                    <input
-                        className="profile-avatar__inp"
-                        type="file"
-                        accept="image/*"
-                    />
                 </section>
                 <section
                     className="inp__sect name__sect"
