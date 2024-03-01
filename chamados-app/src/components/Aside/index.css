@@ -2,6 +2,8 @@
     background-color: var(--color-dark-blue);
     color: var(--color-white);
 
+    flex-shrink: 0;
+
     overflow: auto;
 
     height: auto;

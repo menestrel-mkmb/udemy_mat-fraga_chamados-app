@@ -53,6 +53,10 @@
     transition: all 500ms;
 }
 
+.profile-avatar__inp {
+    max-width: 90%;
+}
+
 .inp {
     background-color: var(--color-plain-white);
     border: 0;
@@ -112,4 +116,15 @@
 
     padding: 1rem 2rem;
     width: fit-content;
+}
+
+@media screen and (max-width:1200px) {
+    .form {
+        align-items: center;
+    }
+
+    .profile-avatar__sect,
+    .profile-avatar__img--sect {
+        justify-content: center;
+    }
 }
