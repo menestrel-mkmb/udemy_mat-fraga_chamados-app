@@ -1,6 +1,33 @@
-.main {
+.main,
+.dashboard,
+.cta__sect,
+.ticket-list__ul,
+.ticket-list__li {
     display: flex;
+    flex-wrap: nowrap;
     flex-direction: column;
-    justify-content: flex-start;
     gap: 1rem;
+
+    padding: 2rem 4rem;
+}
+
+.dashboard,
+.ticket-list {
+    background-color: var(--color-white);
+    border-radius: 1rem;
+}
+
+.cta__sect,
+.ticket-list__li {
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.cta__btn {
+    justify-self: center;
+    padding: 1rem 2rem;
+}
+
+.ticket-list__li {
+    padding: .5rem 1rem;
 }
