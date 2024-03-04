@@ -4,7 +4,7 @@ import "./index.css";
 import Wrapper from "../../components/Wrapper";
 import Main from "../../components/Main";
 import Title from "../../components/Title";
-import { FiHome } from "react-icons/fi";
+import { FiHome, FiEdit2, FiDelete } from "react-icons/fi";
 
 export default function Dashboard(){
     const [ticketId, setTicketId] = useState(null);
@@ -187,14 +187,36 @@ export default function Dashboard(){
                 className="ticket-list ticket-list__sect"
             >
                 <table
-                    className="dashboard__list ticket-list__ul"
+                    className="ticket-list__table ticket-list__table"
                 >
-                <thead>
+                <thead
+                    className="ticket-list__header ticket-list__thead"
+                >
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Cliente</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Ações</th>
+                        <th
+                            className="ticket-list__th"
+                            scope="col"
+                        >
+                            ID
+                        </th>
+                        <th
+                            className="ticket-list__th"
+                            scope="col"
+                        >
+                            Cliente
+                        </th>
+                        <th
+                            className="ticket-list__th"
+                            scope="col"
+                        >
+                            Status
+                        </th>
+                        <th
+                            className="ticket-list__th"
+                            scope="col"
+                        >
+                            Ações
+                        </th>
                     </tr>
                 </thead>
                 {tickets.length === 0 ? (
@@ -207,41 +229,45 @@ export default function Dashboard(){
                     {
                         (tickets.map((ticket, index) => (
                         <tr key={index}
-                            className="ticket-list__li"
+                            className="ticket-list__tr"
                         >
                             <td
+                                className="ticket-list__col"
                                 data-label="ID"
                             >
                                 
                                 <span>{ticket.ticketId}</span>
                             </td>
                             <td
+                                className="ticket-list__col"
                                 data-label="Cliente"
                             >
                                 <span>{ticket.ticketClient}</span>
                             </td>
                             <td
+                                className="ticket-list__col"
                                 data-label="Status"
                             >
                                 <span>{ticket.ticketStatus}</span>
                             </td>
                             <td
+                                className="ticket-list__col"
                                 data-label="Ações"
                             >
                                 <button
+                                    className="ticket-list__btn table__btn"
                                     onClick={e => toEditTicket(e, index)}
                                 >
-                                    Editar
+                                    <FiEdit2 size={16} />
                                 </button>
                                 <button
+                                    className="ticket-list__btn table__btn"
                                     onClick={e => deleteTicket(e, index)}
                                 >
-                                    Excluir
+                                    <FiDelete size={16} />
                                 </button>
                             </td>
-                        </tr>
-                        ))
-                        )
+                        </tr>)))
                     }
                     </tbody>)}
                 </table>
