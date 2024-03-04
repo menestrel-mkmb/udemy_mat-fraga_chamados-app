@@ -1,7 +1,6 @@
 import { firebaseDb } from "../services/firebaseConfig";
 import { collection,
-    addDoc,
-    //doc, getDoc, updateDoc
+    addDoc
 } from "firebase/firestore";
 
 import { createContext, useState } from "react";
@@ -22,10 +21,6 @@ export default function CustomerProvider({ children }){
         setCustomerName('');
         setCustomerCnpj('');
         setCustomerAddress('');
-    }
-
-    const getCustomer = async () => {
-        alert('GetCostumer');
     }
 
     const addCustomer = async (name, cnpj, address) => {
@@ -53,9 +48,7 @@ export default function CustomerProvider({ children }){
                 customerCnpj, setCustomerCnpj,
                 customerAddress, setCustomerAddress,
 
-                customer, setCustomer,
-
-                getCustomer, addCustomer
+                customer, addCustomer
             }}
         >
             { children }
