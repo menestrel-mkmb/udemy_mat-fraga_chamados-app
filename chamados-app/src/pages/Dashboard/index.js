@@ -186,42 +186,65 @@ export default function Dashboard(){
             <section
                 className="ticket-list ticket-list__sect"
             >
-                <ul
+                <table
                     className="dashboard__list ticket-list__ul"
                 >
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Cliente</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
                 {tickets.length === 0 ? (
-                    <li>Você não possui chamados pendentes.</li>
-                ) : (
-                    tickets.map((ticket, index) => (
-                        <li key={index}
+                    <tbody>
+                        <tr>
+                            <td>Você não possui chamados pendentes.</td>
+                        </tr>
+                    </tbody>
+                ) : (<tbody>
+                    {
+                        (tickets.map((ticket, index) => (
+                        <tr key={index}
                             className="ticket-list__li"
                         >
-                            <p>
-                                <strong>ID:</strong>
+                            <td
+                                data-label="ID"
+                            >
+                                
                                 <span>{ticket.ticketId}</span>
-                            </p>
-                            <p>
-                                <strong>Cliente:</strong>
+                            </td>
+                            <td
+                                data-label="Cliente"
+                            >
                                 <span>{ticket.ticketClient}</span>
-                            </p>
-                            <p>
-                                <strong>Status:</strong>
+                            </td>
+                            <td
+                                data-label="Status"
+                            >
                                 <span>{ticket.ticketStatus}</span>
-                            </p>
-                            <button
-                                onClick={e => toEditTicket(e, index)}
+                            </td>
+                            <td
+                                data-label="Ações"
                             >
-                                Editar
-                            </button>
-                            <button
-                                onClick={e => deleteTicket(e, index)}
-                            >
-                                Excluir
-                            </button>
-                        </li>
-                    ))
-                )}
-                </ul>
+                                <button
+                                    onClick={e => toEditTicket(e, index)}
+                                >
+                                    Editar
+                                </button>
+                                <button
+                                    onClick={e => deleteTicket(e, index)}
+                                >
+                                    Excluir
+                                </button>
+                            </td>
+                        </tr>
+                        ))
+                        )
+                    }
+                    </tbody>)}
+                </table>
             </section>
         </Main>
     </Wrapper>
