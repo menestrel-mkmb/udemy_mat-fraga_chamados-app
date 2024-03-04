@@ -24,7 +24,7 @@ export default function Customers(){
         >
             <Title>
                 <FiUser size={24} />
-                Customers
+                Informações do Cliente
             </Title>
             <form
                 className="customers__form"
