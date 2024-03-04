@@ -10,6 +10,7 @@ import AppRoutes from './routes/router';
 import AuthProvider from "./contexts/auth";
 
 import Header from './components/Header';
+import CustomerProvider from './contexts/customer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -18,7 +19,9 @@ root.render(
     <BrowserRouter>
       <Header />
       <AuthProvider>
+      <CustomerProvider>
         <AppRoutes />
+      </CustomerProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>
