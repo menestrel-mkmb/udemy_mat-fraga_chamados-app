@@ -107,7 +107,7 @@ export default function Dashboard(){
                     className="cta__sect"
                 >
                     <button
-                        className="new-ticket__btn cta__btn btn"
+                        className="new-ticket__btn feature-btn cta__btn btn"
                         onClick={e => handleForm(e)}
                     >
                         { toggleForm ? 'Esconder formulário' : 'Criar novo chamado' }

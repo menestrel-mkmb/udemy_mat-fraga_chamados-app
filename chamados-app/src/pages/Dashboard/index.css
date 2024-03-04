@@ -21,6 +21,15 @@
 }
 
 .cta__btn {
+    border: 2px solid var(--color-plain-white);
+    border-radius: .5rem;
+
     justify-self: center;
+
     padding: 1rem 2rem;
+}
+
+.feature-btn:hover {
+    background-color: var(--color-black);
+    color: var(--color-white);
 }
