@@ -1,6 +1,9 @@
 import { useState } from "react";
 import "./index.css";
 
+import { useContext } from "react";
+import { CustomerContext } from "../../contexts/customer";
+
 import Wrapper from "../../components/Wrapper";
 import Main from "../../components/Main";
 import Title from "../../components/Title";
@@ -11,8 +14,27 @@ export default function Customers(){
     const [customerCnpj, setCustomerCnpj] = useState('');
     const [customerAddress, setCustomerAddress] = useState('');
 
+    const {
+        setCustomer,
+        addCustomer
+    } = useContext(CustomerContext);
+
     const handleNewClient = async (e) => {
         e.preventDefault();
+        if(customerName !== ''
+            && customerCnpj !== ''
+            && customerAddress !== ''
+        ){
+            console.log(customerAddress, customerCnpj, customerName);
+
+            setCustomer({
+                customerName: customerName,
+                customerCnpj: customerCnpj,
+                customerAddress: customerAddress
+            });
+
+            await addCustomer(customerName, customerCnpj, customerAddress);
+        }
     }
 
     return(
@@ -63,6 +85,7 @@ export default function Customers(){
                         type="text"
                         name="cnpj"
                         placeholder="CNPJ do cliente"
+                        //pattern="\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}"
                         required
                         value={customerCnpj}
                         onChange={e=>setCustomerCnpj(e.target.value)}
