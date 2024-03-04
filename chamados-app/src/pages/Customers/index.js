@@ -1,5 +1,5 @@
 import { useState } from "react";
-// import "./index.css";
+import "./index.css";
 
 import Wrapper from "../../components/Wrapper";
 import Main from "../../components/Main";

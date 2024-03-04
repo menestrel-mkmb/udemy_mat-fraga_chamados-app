@@ -1,0 +1,13 @@
+.customers__form {
+    background-color: var(--color-white);
+    border-radius: 1rem;
+
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1rem;
+
+    padding: 2rem 4rem;
+}
