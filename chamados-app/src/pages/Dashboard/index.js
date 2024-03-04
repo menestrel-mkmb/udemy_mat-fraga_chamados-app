@@ -10,6 +10,7 @@ export default function Dashboard(){
     const [ticketId, setTicketId] = useState(null);
     const [ticketClient, setTicketClient] = useState(null);
     const [ticketStatus, setTicketStatus] = useState('Pending');
+    const [toggleForm, setToggleForm] = useState(false);
     const [toEdit, setToEdit] = useState(false);
 
     const [clients, setClients] = useState([]);
@@ -25,9 +26,57 @@ export default function Dashboard(){
         }
     ]);
 
-    const handleTicket = (e) => {
+    const handleForm = (e) => {
         e.preventDefault();
-        setToEdit(!toEdit);
+
+        setToggleForm(!toggleForm);
+        setToEdit(false);
+    }
+
+    const addTicket = (e) => {
+        e.preventDefault();
+
+        setTickets([
+            ...tickets,
+            {
+                ticketId: tickets.length + 1,
+                ticketClient: ticketClient,
+                ticketStatus: ticketStatus
+            }
+        ])
+    }
+
+    const editTicket = (e) => {
+        e.preventDefault();
+        const resultTickets = tickets.map((t) => {
+            if(t.ticketId === ticketId){
+                t.ticketId = ticketId;
+                t.ticketClient = ticketClient;
+                t.ticketStatus = ticketStatus;
+            }
+            return t;
+        });
+
+        setTickets(resultTickets);
+        setToEdit(false);
+    }
+
+    const toEditTicket = (e, index) => {
+        e.preventDefault();
+
+        setTicketId(tickets[index].ticketId);
+        setTicketClient(tickets[index].ticketClient);
+        setTicketStatus(tickets[index].ticketStatus);
+        
+        setToggleForm(true);
+        setToEdit(true);
+    }
+
+    const deleteTicket = (e, index) => {
+        e.preventDefault();
+
+        tickets.splice(index, 1);
+        setTickets([...tickets]);
     }
 
     const handleTickets = (e) => {
@@ -37,12 +86,8 @@ export default function Dashboard(){
     }
 
     useEffect(() => {
-        setTicketId(1);
-        setTicketClient('Empresa1');
         setClients(['Empresa1', 'Empresa2']);
-
-        console.log(ticketId, ticketClient);
-    }, [toEdit, ticketClient, ticketId])
+    }, [setClients]);
 
     return(
     <Wrapper
@@ -59,12 +104,13 @@ export default function Dashboard(){
                 className="dashboard dashboard__artc"
             >
                 <section
-                    className=" cta__sect dashboard__sect"
+                    className="cta__sect"
                 >
                     <button
                         className="new-ticket__btn cta__btn btn"
+                        onClick={e => handleForm(e)}
                     >
-                        Criar novo chamado
+                        { toggleForm ? 'Esconder formulário' : 'Criar novo chamado' }
                     </button>
                     <button
                         className="get-tickets__btn cta__btn btn"
@@ -73,22 +119,25 @@ export default function Dashboard(){
                         Atualizar chamados pendentes
                     </button>
                 </section>
+                {toggleForm && (
                 <form
                     className="form form__sect ticket__form"
-                    onSubmit={e => handleTicket(e)}
+                    onSubmit={e => toEdit ? editTicket(e) : addTicket(e)}
                 >
                     <section
                         className="client__sect"
                     >
-                        <select>
+                        <select
+                            onChange={e => setTicketClient(e.target.value)}
+                        >
                             <option
                                 value=""
                             >
                                 Selecione um cliente
                             </option>
-                            { clients.length > 0 && clients.map(client => (
+                            { clients.length > 0 && clients.map( (client, index) => (
                                 <option
-                                    key={client}
+                                    key={index}
                                     value={client}
                                 >
                                     {client}
@@ -124,40 +173,56 @@ export default function Dashboard(){
                     )}
                     <button
                         className={
-                            `${ toEdit ? 'edit__btn' : 'create__btn' } cta__btn btn`
+                            `${ toEdit ? 'edit__btn' : 'create__btn' } form__btn btn`
                         }
-                        onClick={e => handleTicket(e)}
+                        onClick={e => toEdit ? editTicket(e) : addTicket(e)}
                     >
                         {toEdit ? 'Editar chamado' : 'Criar chamado'}
                     </button>
                 </form>
-                <ul
-                    className="dashboard__list"
-                >
-                    {tickets.length === 0 ? (
-                        <li>Você não possui chamados pendentes.</li>
-                    ) : (
-                        tickets.map((ticket, index) => (
-                            <li
-                                key={index}
-                            >
-                                <p>
-                                    <strong>ID:</strong>
-                                    <span>{ticket.ticketId}</span>
-                                </p>
-                                <p>
-                                    <strong>Cliente:</strong>
-                                    <span>{ticket.ticketClient}</span>
-                                </p>
-                                <p>
-                                    <strong>Status:</strong>
-                                    <span>{ticket.ticketStatus}</span>
-                                </p>
-                            </li>
-                        ))
-                    )}
-                </ul>
+                )}
+                
             </article>
+            <section
+                className="ticket-list ticket-list__sect"
+            >
+                <ul
+                    className="dashboard__list ticket-list__ul"
+                >
+                {tickets.length === 0 ? (
+                    <li>Você não possui chamados pendentes.</li>
+                ) : (
+                    tickets.map((ticket, index) => (
+                        <li key={index}
+                            className="ticket-list__li"
+                        >
+                            <p>
+                                <strong>ID:</strong>
+                                <span>{ticket.ticketId}</span>
+                            </p>
+                            <p>
+                                <strong>Cliente:</strong>
+                                <span>{ticket.ticketClient}</span>
+                            </p>
+                            <p>
+                                <strong>Status:</strong>
+                                <span>{ticket.ticketStatus}</span>
+                            </p>
+                            <button
+                                onClick={e => toEditTicket(e, index)}
+                            >
+                                Editar
+                            </button>
+                            <button
+                                onClick={e => deleteTicket(e, index)}
+                            >
+                                Excluir
+                            </button>
+                        </li>
+                    ))
+                )}
+                </ul>
+            </section>
         </Main>
     </Wrapper>
     );
