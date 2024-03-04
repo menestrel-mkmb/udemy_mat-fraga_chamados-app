@@ -1,8 +1,6 @@
 .main,
 .dashboard,
-.cta__sect,
-.ticket-list__ul,
-.ticket-list__li {
+.cta__sect {
     display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
@@ -17,8 +15,7 @@
     border-radius: 1rem;
 }
 
-.cta__sect,
-.ticket-list__li {
+.cta__sect {
     flex-direction: row;
     justify-content: space-around;
 }
@@ -26,8 +23,4 @@
 .cta__btn {
     justify-self: center;
     padding: 1rem 2rem;
-}
-
-.ticket-list__li {
-    padding: .5rem 1rem;
 }
