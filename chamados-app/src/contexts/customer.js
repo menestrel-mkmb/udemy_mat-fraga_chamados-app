@@ -18,33 +18,24 @@ export default function CustomerProvider({ children }){
     const customerCollection = collection(firebaseDb, 'customers');
 
     const clearCustomer = () => {
-        setCustomer({});
+        setCustomer(null);
         setCustomerName('');
         setCustomerCnpj('');
         setCustomerAddress('');
     }
 
     const getCustomer = async () => {
-        
-        // const docRef = getDoc(doc(customerCollection, ));
-
-        // const customer = await getDoc(docRef);
         alert('GetCostumer');
     }
 
     const addCustomer = async (name, cnpj, address) => {
+
         await addDoc(customerCollection, {
             customerName: name,
             customerCnpj: cnpj,
             customerAddress: address
         })
         .then(() => {
-            setCustomer({
-                customerName: name,
-                customerCnpj: cnpj,
-                customerAddress: address
-            });
-
             toast.success("Cliente adicionado com sucesso");
         })
         .catch( () => {

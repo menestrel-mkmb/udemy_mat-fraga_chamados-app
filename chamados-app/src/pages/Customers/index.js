@@ -14,26 +14,29 @@ export default function Customers(){
     const [customerCnpj, setCustomerCnpj] = useState('');
     const [customerAddress, setCustomerAddress] = useState('');
 
-    const {
-        setCustomer,
-        addCustomer
-    } = useContext(CustomerContext);
+    const { addCustomer } = useContext(CustomerContext);
+
+    const clearStates = () => {
+        setCustomerName('');
+        setCustomerCnpj('');
+        setCustomerAddress('');
+    }
 
     const handleNewClient = async (e) => {
         e.preventDefault();
+
         if(customerName !== ''
             && customerCnpj !== ''
             && customerAddress !== ''
         ){
-            console.log(customerAddress, customerCnpj, customerName);
-
-            setCustomer({
-                customerName: customerName,
-                customerCnpj: customerCnpj,
-                customerAddress: customerAddress
-            });
-
-            await addCustomer(customerName, customerCnpj, customerAddress);
+            await addCustomer(
+                customerName,
+                customerCnpj,
+                customerAddress
+            )
+            .then(() => {
+                clearStates();
+            })
         }
     }
 
@@ -64,7 +67,7 @@ export default function Customers(){
                     <input
                         className="customer-name__inp inp"
                         type="text"
-                        customerName="customer-ame"
+                        name="customer-name"
                         placeholder="Nome do cliente"
                         required
                         value={customerName}
