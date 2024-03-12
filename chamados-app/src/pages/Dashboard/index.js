@@ -247,8 +247,10 @@ export default function Dashboard(){
                         </label>
                         <textarea
                             className="message__textarea"
-                            value={ticketMessage}
                             onChange={e => setTicketMessage(e.target.value)}
+                            value={ticketMessage}
+                            type="text"
+                            placeholder="Descreva seu problema"
                         ></textarea>
                     </section>
                     <button
@@ -256,6 +258,7 @@ export default function Dashboard(){
                             `${ toEdit ? 'edit__btn' : 'create__btn' } form__btn btn`
                         }
                         onClick={e => toEdit ? editTicket(e) : addTicket(e)}
+                        type="submit"
                     >
                         {toEdit ? 'Editar chamado' : 'Criar chamado'}
                     </button>
