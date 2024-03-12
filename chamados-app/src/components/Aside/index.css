@@ -10,6 +10,7 @@
     min-height: 100vh;
     height: -webkit-fill-available;
     width: 25%;
+    min-width: 300px;
     max-width: 20rem;
 }
 
@@ -50,7 +51,7 @@
     align-items: center;
     gap: 1rem;
 
-    min-width: 250px;
+    min-width: 350px;
 
     margin: 1rem 0;
 }
@@ -63,6 +64,7 @@
     justify-content: center;
 
     width: 100%;
+    min-width: 320px;
     height: 100%;
 
     padding: .5rem 1rem;
@@ -83,7 +85,7 @@
     color: var(--color-white);
     font-size: 1.25rem;
 
-    width: 100%;
+    min-width: 200px;
     height: 100%;
 
     padding: .5rem .2rem;
@@ -112,10 +114,40 @@
 
     .nav__ul {
         flex-direction: row;
-        width: max-content;
+    }
+
+    .nav__li {
+        min-width: 200px;
+    }
+
+    .li__lnk {
+        margin: 0;
+        min-width: 100px;
     }
 
     .avatar__div {
         display: none;
     }
+}
+
+@media screen and (max-width: 600px) {
+    .aside {
+        height: fit-content;
+        min-height: auto;
+    }
+
+    .nav__aside,
+    .nav__ul {
+        width: 100%;
+    }
+
+    .nav__ul {
+        flex-direction: column;
+    }
+
+    .nav__li,
+    .li__icon {
+        max-width: 100%;
+    }
+    
 }
