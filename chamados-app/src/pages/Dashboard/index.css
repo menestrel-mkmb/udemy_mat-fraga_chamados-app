@@ -21,6 +21,7 @@
 .cta__sect {
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
 }
 
 .cta__btn {
@@ -64,18 +65,83 @@
 .ticket-list__th {
     font-size: 1rem;
     font-weight: 700;
+    letter-spacing: .1rem;
+    text-transform: uppercase;
 }
 
 .table__btn {
     border: 0;
     background-color: var(--color-white);
+    color: var(--color-white);
     
     margin: 0 .2rem;
     padding: 1rem;
+
+    transition: ease-in-out 200ms;
 }
 
-@media screen and (max-width: 700px) {
+.edit__btn {
+    background-color: var(--color-dark-blue);
+}
+
+.delete__btn {
+    background-color: var(--color-purple);
+}
+
+.table__btn:hover {
+    cursor: pointer;
+    filter: saturate(1.5);
+
+    scale: 1.05;
+}
+
+@media screen and (max-width: 600px) {
     .cta__sect {
         flex-wrap: wrap;
+        gap: .1rem;
+    }
+
+    .ticket-list__table {
+        font-size: .8rem;
+    }
+
+    .ticket-list__thead {
+        border: 0;
+
+        position: absolute;
+        overflow: hidden;
+
+        height: 1px;
+        width: 1px;
+
+        margin: -1px;
+        padding: 0;
+    }
+
+    .ticket-list__tr {
+        border-bottom: 3px solid #ddd;
+        
+        display: block;
+
+        margin-bottom: .6rem;
+    }
+
+    .ticket-list__td {
+        border-bottom: 1px solid #ddd;
+        text-align: right;
+
+        display: block;
+    }
+
+    .ticket-list__td::before {
+        font-weight: 700;
+        
+        content: attr(data-label);
+        float: left;
+    }
+
+    .table__btn {
+        margin: .1rem;
+        padding: .25rem .5rem;
     }
 }
