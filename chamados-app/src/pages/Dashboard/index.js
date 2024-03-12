@@ -36,6 +36,13 @@ export default function Dashboard(){
     const addTicket = (e) => {
         e.preventDefault();
 
+        if(
+            !ticketClient ||
+            ticketClient === ''
+        ){
+            return;
+        }
+
         setTickets([
             ...tickets,
             {
