@@ -232,36 +232,36 @@ export default function Dashboard(){
                             className="ticket-list__tr"
                         >
                             <td
-                                className="ticket-list__col"
+                                className="ticket-list__td"
                                 data-label="ID"
                             >
                                 
                                 <span>{ticket.ticketId}</span>
                             </td>
                             <td
-                                className="ticket-list__col"
+                                className="ticket-list__td"
                                 data-label="Cliente"
                             >
                                 <span>{ticket.ticketClient}</span>
                             </td>
                             <td
-                                className="ticket-list__col"
+                                className="ticket-list__td"
                                 data-label="Status"
                             >
                                 <span>{ticket.ticketStatus}</span>
                             </td>
                             <td
-                                className="ticket-list__col"
+                                className="ticket-list__td"
                                 data-label="Ações"
                             >
                                 <button
-                                    className="ticket-list__btn table__btn"
+                                    className="edit__btn ticket-list__btn table__btn"
                                     onClick={e => toEditTicket(e, index)}
                                 >
                                     <FiEdit2 size={16} />
                                 </button>
                                 <button
-                                    className="ticket-list__btn table__btn"
+                                    className="delete__btn ticket-list__btn table__btn"
                                     onClick={e => deleteTicket(e, index)}
                                 >
                                     <FiDelete size={16} />
