@@ -12,6 +12,33 @@
     gap: 1rem;
 }
 
+.form,
+.form section {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 1rem;
+    
+}
+
+.form {
+    align-items: flex-start;
+
+    min-width: 40%;
+}
+
+.form section {
+    gap: .25rem;
+    min-width: 100%;
+}
+
+.message__textarea {
+    resize: none;
+
+    height: 8rem;
+}
+
 .dashboard,
 .ticket-list {
     background-color: var(--color-white);
