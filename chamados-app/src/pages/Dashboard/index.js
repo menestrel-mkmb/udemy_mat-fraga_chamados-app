@@ -4,7 +4,7 @@ import "./index.css";
 import Wrapper from "../../components/Wrapper";
 import Main from "../../components/Main";
 import Title from "../../components/Title";
-import { FiHome, FiEdit2, FiDelete } from "react-icons/fi";
+import { FiHome, FiEdit2, FiDelete, FiPenTool } from "react-icons/fi";
 
 export default function Dashboard(){
     const [ticketId, setTicketId] = useState(null);
@@ -103,10 +103,17 @@ export default function Dashboard(){
         <Main
             classes="main main__sect"
         >
-            <Title>
+            {toggleForm ? 
+            (<Title>
+                <FiPenTool size={24} />
+                Criar novo Chamado
+            </Title>               
+            ) :
+            (<Title>
                 <FiHome size={24} />
                 Painel de Chamados
             </Title>
+            )}
             <article
                 className="dashboard dashboard__artc"
             >
