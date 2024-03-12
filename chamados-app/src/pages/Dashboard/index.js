@@ -170,6 +170,34 @@ export default function Dashboard(){
                             ))}
                         </select>
                     </section>
+                    <section
+                        className="subject subject__sect"
+                    >
+                        <label
+                            className="subject__label"
+                            htmlFor="subject"
+                        >
+                            Assunto
+                        </label>
+                        <select
+                            className="subject__select"
+                            onChange={e => setSubject(e.target.value)}
+                        >
+                            <option
+                                value=""
+                            >
+                                Selecione um assunto
+                            </option>
+                            { subjects.length > 0 && subjects.map( (subject, index) => (
+                                <option
+                                    key={index}
+                                    value={subject.subjectId}
+                                >
+                                    {subject.subjectName}
+                                </option>
+                            ))}
+                        </select>
+                    </section>
                     { toEdit && (
                         <section
                             className="status__sect"
