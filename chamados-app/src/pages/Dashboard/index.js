@@ -17,7 +17,7 @@ export default function Dashboard(){
     const [toEdit, setToEdit] = useState(false);
 
     const [clients, setClients] = useState([]);
-    const [subjects, setSubjects] = useState([]);
+    const subjects= ['Suporte', 'Visita técnica', 'Financeiro'];
     const [tickets, setTickets] = useState([
         {
             ticketId: 1,
@@ -109,7 +109,6 @@ export default function Dashboard(){
 
     useEffect(() => {
         setClients(['Empresa1', 'Empresa2']);
-        setSubjects(['Assunto1', 'Assunto2']);
     }, [setClients]);
 
     return(
