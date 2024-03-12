@@ -117,7 +117,7 @@ export default function Dashboard(){
             {toggleForm ? 
             (<Title>
                 <FiPenTool size={24} />
-                Criar novo Chamado
+                {toEdit ? "Editar " : "Criar novo "} Chamado
             </Title>               
             ) :
             (<Title>
