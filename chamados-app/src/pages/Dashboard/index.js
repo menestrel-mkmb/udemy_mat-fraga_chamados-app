@@ -9,11 +9,22 @@ import { FiHome, FiEdit2, FiDelete, FiPenTool } from "react-icons/fi";
 export default function Dashboard(){
     const [ticketId, setTicketId] = useState(null);
     const [ticketClient, setTicketClient] = useState(null);
+    const [subject, setSubject] = useState(null);
     const [ticketStatus, setTicketStatus] = useState('Pending');
     const [toggleForm, setToggleForm] = useState(false);
     const [toEdit, setToEdit] = useState(false);
 
     const [clients, setClients] = useState([]);
+    const [subjects, setSubjects] = useState([
+        {
+            subjectId: 1,
+            subjectName: 'Assunto1',
+        },
+        {
+            subjectId: 2,
+            subjectName: 'Assunto2',
+        }
+    ])
     const [tickets, setTickets] = useState([
         {
             ticketId: 1,
