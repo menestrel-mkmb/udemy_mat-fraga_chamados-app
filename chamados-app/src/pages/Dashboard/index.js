@@ -15,16 +15,7 @@ export default function Dashboard(){
     const [toEdit, setToEdit] = useState(false);
 
     const [clients, setClients] = useState([]);
-    const [subjects, setSubjects] = useState([
-        {
-            subjectId: 1,
-            subjectName: 'Assunto1',
-        },
-        {
-            subjectId: 2,
-            subjectName: 'Assunto2',
-        }
-    ])
+    const [subjects, setSubjects] = useState([]);
     const [tickets, setTickets] = useState([
         {
             ticketId: 1,
@@ -110,6 +101,7 @@ export default function Dashboard(){
 
     useEffect(() => {
         setClients(['Empresa1', 'Empresa2']);
+        setSubjects(['Assunto1', 'Assunto2']);
     }, [setClients]);
 
     return(
@@ -203,9 +195,9 @@ export default function Dashboard(){
                             { subjects.length > 0 && subjects.map( (subject, index) => (
                                 <option
                                     key={index}
-                                    value={subject.subjectId}
+                                    value={subject}
                                 >
-                                    {subject.subjectName}
+                                    {subject}
                                 </option>
                             ))}
                         </select>
