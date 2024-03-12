@@ -64,6 +64,8 @@ export default function Dashboard(){
                 ticketStatus: ticketStatus
             }
         ]);
+
+        setToggleForm(false);
     }
 
     const editTicket = (e) => {
@@ -79,6 +81,7 @@ export default function Dashboard(){
 
         setTickets(resultTickets);
         setToEdit(false);
+        setToggleForm(false);
     }
 
     const toEditTicket = (e, index) => {
