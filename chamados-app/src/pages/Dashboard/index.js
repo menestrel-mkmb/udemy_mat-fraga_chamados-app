@@ -11,6 +11,8 @@ export default function Dashboard(){
     const [ticketClient, setTicketClient] = useState(null);
     const [subject, setSubject] = useState(null);
     const [ticketStatus, setTicketStatus] = useState('Pending');
+    const [ticketMessage, setTicketMessage] = useState('');
+
     const [toggleForm, setToggleForm] = useState(false);
     const [toEdit, setToEdit] = useState(false);
 
@@ -27,6 +29,9 @@ export default function Dashboard(){
             ticketStatus: 'Pending',
         }
     ]);
+    // setTickets fica fora do useEffect, pois se ficasse dentro,
+    // ao criar ou editar ou deletar um ticket,
+    // o useEffect voltaria para o estado normal
 
     const handleForm = (e) => {
         e.preventDefault();
@@ -44,6 +49,7 @@ export default function Dashboard(){
             !subject ||
             subject === ''
         ){
+            console.log("Por favor, preencha todos os campos");
             return;
         }
 
@@ -78,12 +84,12 @@ export default function Dashboard(){
     const toEditTicket = (e, index) => {
         e.preventDefault();
 
+        setToggleForm(true);
+        setToEdit(true);
+
         setTicketId(tickets[index].ticketId);
         setTicketClient(tickets[index].ticketClient);
         setTicketStatus(tickets[index].ticketStatus);
-        
-        setToggleForm(true);
-        setToEdit(true);
     }
 
     const deleteTicket = (e, index) => {
@@ -228,6 +234,21 @@ export default function Dashboard(){
                             </select>
                         </section>
                     )}
+                    <section
+                        className="message__sect"
+                    >
+                        <label
+                            className="message__label"
+                            htmlFor="message"
+                        >
+                            Mensagem: 
+                        </label>
+                        <textarea
+                            className="message__textarea"
+                            value={ticketMessage}
+                            onChange={e => setTicketMessage(e.target.value)}
+                        ></textarea>
+                    </section>
                     <button
                         className={
                             `${ toEdit ? 'edit__btn' : 'create__btn' } form__btn btn`
