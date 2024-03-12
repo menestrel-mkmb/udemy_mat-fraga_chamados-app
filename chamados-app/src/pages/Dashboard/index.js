@@ -47,7 +47,9 @@ export default function Dashboard(){
             !ticketClient ||
             ticketClient === '' ||
             !subject ||
-            subject === ''
+            subject === '' ||
+            !ticketMessage ||
+            ticketMessage === ''
         ){
             console.log("Por favor, preencha todos os campos");
             return;
