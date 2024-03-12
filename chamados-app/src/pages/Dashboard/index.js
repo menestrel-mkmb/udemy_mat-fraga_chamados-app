@@ -152,7 +152,14 @@ export default function Dashboard(){
                     <section
                         className="client__sect"
                     >
+                        <label
+                            className="client__label"
+                            htmlFor="client"
+                        >
+                            Cliente: 
+                        </label>
                         <select
+                            className="client__select"
                             onChange={e => setTicketClient(e.target.value)}
                         >
                             <option
@@ -177,7 +184,7 @@ export default function Dashboard(){
                             className="subject__label"
                             htmlFor="subject"
                         >
-                            Assunto
+                            Assunto: 
                         </label>
                         <select
                             className="subject__select"
