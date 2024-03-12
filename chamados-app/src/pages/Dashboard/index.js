@@ -49,7 +49,9 @@ export default function Dashboard(){
 
         if(
             !ticketClient ||
-            ticketClient === ''
+            ticketClient === '' ||
+            !subject ||
+            subject === ''
         ){
             return;
         }
@@ -61,7 +63,7 @@ export default function Dashboard(){
                 ticketClient: ticketClient,
                 ticketStatus: ticketStatus
             }
-        ])
+        ]);
     }
 
     const editTicket = (e) => {
