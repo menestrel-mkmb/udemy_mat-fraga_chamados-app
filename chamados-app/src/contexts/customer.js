@@ -1,6 +1,6 @@
 import { firebaseDb } from "../services/firebaseConfig";
 import { collection,
-    addDoc
+    addDoc, getDocs
 } from "firebase/firestore";
 
 import { createContext, useState } from "react";
@@ -14,6 +14,8 @@ export default function CustomerProvider({ children }){
     const [customerAddress, setCustomerAddress] = useState('');
     const [customer, setCustomer] = useState(null);
 
+    const [customers, setCustomers] = useState([]);
+
     const customerCollection = collection(firebaseDb, 'customers');
 
     const clearCustomer = () => {
@@ -21,6 +23,30 @@ export default function CustomerProvider({ children }){
         setCustomerName('');
         setCustomerCnpj('');
         setCustomerAddress('');
+    }
+
+    const getCustomers = async () => {
+        await getDocs(customerCollection)
+        .then( (customer) => {
+            setCustomers([]);
+            let cus = [];
+            customer.forEach( (customer) => {
+                cus.push({
+                    id: customer.id,
+                    customerName: customer.data().customerName,
+                    customerCnpj: customer.data().customerCnpj,
+                    customerAddress: customer.data().customerAddress
+                })
+            });
+            setCustomers(cus);
+
+            return cus;
+        })
+        .catch( () => {
+            toast.error("Erro ao buscar clientes");
+
+            return [];
+        })
     }
 
     const addCustomer = async (name, cnpj, address) => {
@@ -48,7 +74,9 @@ export default function CustomerProvider({ children }){
                 customerCnpj, setCustomerCnpj,
                 customerAddress, setCustomerAddress,
 
-                customer, addCustomer
+                customer, addCustomer,
+
+                customers, getCustomers,
             }}
         >
             { children }
