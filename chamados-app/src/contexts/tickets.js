@@ -1,7 +1,13 @@
 import { createContext, useState } from "react";
 
 import { firebaseDb } from "../services/firebaseConfig";
-import { collection } from "firebase/firestore";
+import {
+    collection,
+    addDoc,
+    getDocs
+} from "firebase/firestore";
+
+import { toast } from "react-toastify";
 
 export const TicketsContext = createContext({});
 
@@ -11,10 +17,29 @@ export default function TicketsProvider({ children }){
     const [ticketStatus, setTicketStatus] = useState('Pending');
     const [ticketDate, setTicketDate] = useState('');
     
-
     const [tickets, setTickets] = useState([]);
 
     const ticketCollection = collection(firebaseDb, 'tickets');
+
+    const getTickets = async () => {
+        await getDocs(ticketCollection)
+        .then( (ticket) => {
+            let tic = [];
+            ticket.forEach( (ticket) => {
+                tic.push({
+                    id: ticket.id,
+                    ticketClient: ticket.data().ticketClient,
+                    ticketStatus: ticket.data().ticketStatus,
+                    ticketDate: ticket.data().ticketDate
+                })
+            });
+            setTickets(tic);
+        })
+        .catch( (error) => {
+            console.log(error);
+            toast.error("Erro ao buscar chamados");
+        })
+    }
 
     const addTicket = async (client, status, date) => {
         await addDoc(ticketCollection, {
@@ -54,6 +79,8 @@ export default function TicketsProvider({ children }){
 
                 clearCurrentTicket,
                 clearLocalList,
+
+                addTicket, getTickets
             }}
         >
             { children }
