@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./index.css";
+
+import { CustomerContext } from "../../contexts/customer";
 
 import Wrapper from "../../components/Wrapper";
 import Main from "../../components/Main";
@@ -12,26 +14,16 @@ export default function Dashboard(){
     const [subject, setSubject] = useState(null);
     const [ticketStatus, setTicketStatus] = useState('Pending');
     const [ticketMessage, setTicketMessage] = useState('');
+    const [initialLoad, setInitialLoad] = useState(true);
 
     const [toggleForm, setToggleForm] = useState(false);
     const [toEdit, setToEdit] = useState(false);
 
     const [clients, setClients] = useState([]);
     const subjects= ['Suporte', 'Visita técnica', 'Financeiro'];
-    const [tickets, setTickets] = useState([
-        {
-            ticketId: 1,
-            ticketClient: 'Empresa1',
-            ticketStatus: 'Pending',
-        }, {
-            ticketId: 2,
-            ticketClient: 'Empresa2',
-            ticketStatus: 'Pending',
-        }
-    ]);
-    // setTickets fica fora do useEffect, pois se ficasse dentro,
-    // ao criar ou editar ou deletar um ticket,
-    // o useEffect voltaria para o estado normal
+    const [tickets, setTickets] = useState([]);
+
+    const { customers, getCustomers } = useContext(CustomerContext);
 
     const handleForm = (e) => {
         e.preventDefault();
@@ -63,6 +55,7 @@ export default function Dashboard(){
                 ticketStatus: ticketStatus
             }
         ]);
+        setTicketMessage('');
 
         setToggleForm(false);
     }
@@ -108,8 +101,36 @@ export default function Dashboard(){
     }
 
     useEffect(() => {
-        setClients(['Empresa1', 'Empresa2']);
-    }, [setClients]);
+        getCustomers();
+        customers.forEach(customer => {
+            if(customer.customerName && !clients.includes(customer.customerName)){
+                setClients([
+                    ...clients,
+                    customer.customerName
+                ]);
+            }
+        });
+    }, [clients, customers, getCustomers]);
+
+    useEffect(() => {
+        if(initialLoad) {
+            setTickets([
+                {
+                    ticketId: 1,
+                    ticketClient: 'Empresa1',
+                    ticketStatus: 'Pending',
+                }, {
+                    ticketId: 2,
+                    ticketClient: 'Empresa2',
+                    ticketStatus: 'Pending',
+                }
+            ]);
+            setInitialLoad(false);
+        }
+    }, [
+        initialLoad, setInitialLoad,
+        setTickets,
+    ]);
 
     return(
     <Wrapper
