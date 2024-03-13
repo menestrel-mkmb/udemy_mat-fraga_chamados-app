@@ -1,6 +1,8 @@
 import { firebaseDb } from "../services/firebaseConfig";
-import { collection,
-    addDoc, getDocs
+import {
+    collection,
+    addDoc,
+    getDocs
 } from "firebase/firestore";
 
 import { createContext, useState } from "react";
@@ -43,8 +45,6 @@ export default function CustomerProvider({ children }){
             return cus;
         })
         .catch( () => {
-            toast.error("Erro ao buscar clientes");
-
             return [];
         })
     }
