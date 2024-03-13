@@ -21,7 +21,7 @@ export default function Dashboard(){
 
     const [clients, setClients] = useState([]);
     const subjects= ['Suporte', 'Visita técnica', 'Financeiro'];
-    const [tickets, setTickets] = useState([]);
+    const [tasks, setTasks] = useState([]);
 
     const { customers, getCustomers } = useContext(CustomerContext);
 
@@ -29,7 +29,7 @@ export default function Dashboard(){
         e.preventDefault();
 
         setToggleForm(!toggleForm);
-        setToEdit(false);
+        toEdit && setToEdit(false);
     }
 
     const addTicket = (e) => {
@@ -47,10 +47,10 @@ export default function Dashboard(){
             return;
         }
 
-        setTickets([
-            ...tickets,
+        setTasks([
+            ...tasks,
             {
-                ticketId: tickets.length + 1,
+                ticketId: tasks.length + 1,
                 ticketClient: ticketClient,
                 ticketStatus: ticketStatus
             }
@@ -62,7 +62,7 @@ export default function Dashboard(){
 
     const editTicket = (e) => {
         e.preventDefault();
-        const resultTickets = tickets.map((t) => {
+        const resultTickets = tasks.map((t) => {
             if(t.ticketId === ticketId){
                 t.ticketId = ticketId;
                 t.ticketClient = ticketClient;
@@ -71,7 +71,7 @@ export default function Dashboard(){
             return t;
         });
 
-        setTickets(resultTickets);
+        setTasks(resultTickets);
         setToEdit(false);
         setToggleForm(false);
     }
@@ -82,22 +82,22 @@ export default function Dashboard(){
         setToggleForm(true);
         setToEdit(true);
 
-        setTicketId(tickets[index].ticketId);
-        setTicketClient(tickets[index].ticketClient);
-        setTicketStatus(tickets[index].ticketStatus);
+        setTicketId(tasks[index].ticketId);
+        setTicketClient(tasks[index].ticketClient);
+        setTicketStatus(tasks[index].ticketStatus);
     }
 
     const deleteTicket = (e, index) => {
         e.preventDefault();
 
-        tickets.splice(index, 1);
-        setTickets([...tickets]);
+        tasks.splice(index, 1);
+        setTasks([...tasks]);
     }
 
     const handleTickets = (e) => {
         e.preventDefault();
 
-        setTickets([]);
+        setTasks([]);
     }
 
     useEffect(() => {
@@ -114,7 +114,7 @@ export default function Dashboard(){
 
     useEffect(() => {
         if(initialLoad) {
-            setTickets([
+            setTasks([
                 {
                     ticketId: 1,
                     ticketClient: 'Empresa1',
@@ -129,7 +129,7 @@ export default function Dashboard(){
         }
     }, [
         initialLoad, setInitialLoad,
-        setTickets,
+        setTasks,
     ]);
 
     return(
@@ -163,7 +163,7 @@ export default function Dashboard(){
                         { toggleForm ? 'Esconder formulário' : 'Criar novo chamado' }
                     </button>
                     <button
-                        className="get-tickets__btn cta__btn btn"
+                        className="get-tasks__btn cta__btn btn"
                         onClick={e => handleTickets(e)}
                     >
                         Atualizar chamados pendentes
@@ -322,7 +322,7 @@ export default function Dashboard(){
                         </th>
                     </tr>
                 </thead>
-                {tickets.length === 0 ? (
+                {tasks.length === 0 ? (
                     <tbody>
                         <tr>
                             <td>Você não possui chamados pendentes.</td>
@@ -330,7 +330,7 @@ export default function Dashboard(){
                     </tbody>
                 ) : (<tbody>
                     {
-                        (tickets.map((ticket, index) => (
+                        (tasks.map((ticket, index) => (
                         <tr key={index}
                             className="ticket-list__tr"
                         >
