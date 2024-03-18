@@ -60,7 +60,15 @@ export default function TicketsProvider({ children }){
     }
 
     const deleteTicket = async (id) => {
-        
+        const docRef = doc(ticketCollection, id);
+
+        await deleteDoc(docRef)
+        .then(() => {
+            toast.success("Chamado deletado com sucesso");
+        })
+        .catch( () => {
+            toast.error("Erro ao deletar chamado");
+        })
     }
 
     const updateTicket = async(id, client, status, date) => {
