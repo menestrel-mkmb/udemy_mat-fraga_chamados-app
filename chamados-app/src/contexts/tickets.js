@@ -2,9 +2,12 @@ import { createContext, useState } from "react";
 
 import { firebaseDb } from "../services/firebaseConfig";
 import {
+    doc,
     collection,
     addDoc,
-    getDocs
+    getDocs,
+    updateDoc,
+    deleteDoc
 } from "firebase/firestore";
 
 import { toast } from "react-toastify";
@@ -56,6 +59,26 @@ export default function TicketsProvider({ children }){
         })
     }
 
+    const deleteTicket = async (id) => {
+        
+    }
+
+    const updateTicket = async(id, client, status, date) => {
+        const docRef = doc(ticketCollection, id);
+
+        await updateDoc(docRef, {
+            ticketClient: client,
+            ticketStatus: status,
+            ticketDate: date
+        })
+        .then(() => {
+            toast.success("Chamado atualizado com sucesso");
+        })
+        .catch( () => {
+            toast.error("Erro ao atualizar chamado");
+        })
+    }
+
     const clearCurrentTicket = () => {
         setTicketId(null);
         setTicketClient(null);
@@ -80,7 +103,8 @@ export default function TicketsProvider({ children }){
                 clearCurrentTicket,
                 clearLocalList,
 
-                addTicket, getTickets
+                addTicket, getTickets,
+                deleteTicket, updateTicket
             }}
         >
             { children }
