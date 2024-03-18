@@ -19,7 +19,6 @@ export default function Dashboard(){
     const [toggleForm, setToggleForm] = useState(false);
     const [toEdit, setToEdit] = useState(false);
 
-    const [clients, setClients] = useState([]);
     const subjects= ['Suporte', 'Visita técnica', 'Financeiro'];
     const [tasks, setTasks] = useState([]);
 
