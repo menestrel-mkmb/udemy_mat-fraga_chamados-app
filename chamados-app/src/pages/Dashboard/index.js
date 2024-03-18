@@ -21,7 +21,6 @@ export default function Dashboard(){
     const [toEdit, setToEdit] = useState(false);
 
     const subjects= ['Suporte', 'Visita técnica', 'Financeiro'];
-    const [tasks, setTasks] = useState([]);
 
     const { customers, getCustomers } = useContext(CustomerContext);
     const { tickets, getTickets, addTicket, updateTicket, 
@@ -90,14 +89,10 @@ export default function Dashboard(){
         e.preventDefault();
 
         deleteTicket(tickets[index].id);
-        // tasks.splice(index, 1);
-        // setTasks([...tasks]);
     }
 
     const handleTickets = (e) => {
         e.preventDefault();
-
-        setTasks([]);
     }
 
     useEffect(() => {
