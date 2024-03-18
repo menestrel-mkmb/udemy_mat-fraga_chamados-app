@@ -7,6 +7,7 @@ import Wrapper from "../../components/Wrapper";
 import Main from "../../components/Main";
 import Title from "../../components/Title";
 import { FiHome, FiEdit2, FiDelete, FiPenTool } from "react-icons/fi";
+import { TicketsContext } from "../../contexts/tickets";
 
 export default function Dashboard(){
     const [ticketId, setTicketId] = useState(null);
@@ -23,6 +24,7 @@ export default function Dashboard(){
     const [tasks, setTasks] = useState([]);
 
     const { customers, getCustomers } = useContext(CustomerContext);
+    const { tickets, getTickets, addTicket } = useContext(TicketsContext);
 
     const handleForm = (e) => {
         e.preventDefault();
@@ -31,7 +33,7 @@ export default function Dashboard(){
         toEdit && setToEdit(false);
     }
 
-    const addTicket = (e) => {
+    const addTask = async (e) => {
         e.preventDefault();
 
         if(
@@ -46,14 +48,11 @@ export default function Dashboard(){
             return;
         }
 
-        setTasks([
-            ...tasks,
-            {
-                ticketId: tasks.length + 1,
-                ticketClient: ticketClient,
-                ticketStatus: ticketStatus
-            }
-        ]);
+        await addTicket(ticketClient, ticketStatus, Date.now())
+        .then(() => {
+            setTicketClient('');
+            setSubject('');
+        })
         setTicketMessage('');
 
         setToggleForm(false);
@@ -61,7 +60,7 @@ export default function Dashboard(){
 
     const editTicket = (e) => {
         e.preventDefault();
-        const resultTickets = tasks.map((t) => {
+        const resultTickets = tickets.map((t) => {
             if(t.ticketId === ticketId){
                 t.ticketId = ticketId;
                 t.ticketClient = ticketClient;
@@ -81,9 +80,9 @@ export default function Dashboard(){
         setToggleForm(true);
         setToEdit(true);
 
-        setTicketId(tasks[index].ticketId);
-        setTicketClient(tasks[index].ticketClient);
-        setTicketStatus(tasks[index].ticketStatus);
+        setTicketId(tickets[index].id);
+        setTicketClient(tickets[index].ticketClient);
+        setTicketStatus(tickets[index].ticketStatus);
     }
 
     const deleteTicket = (e, index) => {
@@ -102,23 +101,13 @@ export default function Dashboard(){
     useEffect(() => {
         if(initialLoad) {
             getCustomers();
-            setTasks([
-                {
-                    ticketId: 1,
-                    ticketClient: 'Empresa1',
-                    ticketStatus: 'Pending',
-                }, {
-                    ticketId: 2,
-                    ticketClient: 'Empresa2',
-                    ticketStatus: 'Pending',
-                }
-            ]);
+            getTickets();
             setInitialLoad(false);
         }
     }, [
         initialLoad, setInitialLoad,
-        setTasks,
-        getCustomers
+        getCustomers,
+        getTickets,
     ]);
 
     return(
@@ -161,7 +150,7 @@ export default function Dashboard(){
                 {toggleForm && (
                 <form
                     className="form form__sect ticket__form"
-                    onSubmit={e => toEdit ? editTicket(e) : addTicket(e)}
+                    onSubmit={e => toEdit ? editTicket(e) : addTask(e)}
                 >
                     <section
                         className="client__sect"
@@ -266,7 +255,6 @@ export default function Dashboard(){
                         className={
                             `${ toEdit ? 'edit__btn' : 'create__btn' } form__btn btn`
                         }
-                        onClick={e => toEdit ? editTicket(e) : addTicket(e)}
                         type="submit"
                     >
                         {toEdit ? 'Editar chamado' : 'Criar chamado'}
@@ -311,7 +299,7 @@ export default function Dashboard(){
                         </th>
                     </tr>
                 </thead>
-                {tasks.length === 0 ? (
+                {tickets.length === 0 ? (
                     <tbody>
                         <tr>
                             <td>Você não possui chamados pendentes.</td>
@@ -319,7 +307,7 @@ export default function Dashboard(){
                     </tbody>
                 ) : (<tbody>
                     {
-                        (tasks.map((ticket, index) => (
+                        (tickets.map((ticket, index) => (
                         <tr key={index}
                             className="ticket-list__tr"
                         >
@@ -328,7 +316,7 @@ export default function Dashboard(){
                                 data-label="ID"
                             >
                                 
-                                <span>{ticket.ticketId}</span>
+                                <span>{ticket.id}</span>
                             </td>
                             <td
                                 className="ticket-list__td"
