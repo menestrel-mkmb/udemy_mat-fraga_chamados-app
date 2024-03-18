@@ -101,19 +101,8 @@ export default function Dashboard(){
     }
 
     useEffect(() => {
-        getCustomers();
-        customers.forEach(customer => {
-            if(customer.customerName && !clients.includes(customer.customerName)){
-                setClients([
-                    ...clients,
-                    customer.customerName
-                ]);
-            }
-        });
-    }, [clients, customers, getCustomers]);
-
-    useEffect(() => {
         if(initialLoad) {
+            getCustomers();
             setTasks([
                 {
                     ticketId: 1,
@@ -130,6 +119,7 @@ export default function Dashboard(){
     }, [
         initialLoad, setInitialLoad,
         setTasks,
+        getCustomers
     ]);
 
     return(
@@ -192,12 +182,12 @@ export default function Dashboard(){
                             >
                                 Selecione um cliente
                             </option>
-                            { clients.length > 0 && clients.map( (client, index) => (
+                            { customers.length > 0 && customers.map( (customer, index) => (
                                 <option
                                     key={index}
-                                    value={client}
+                                    value={customer.customerName}
                                 >
-                                    {client}
+                                    {customer.customerName}
                                 </option>
                             ))}
                         </select>
