@@ -25,7 +25,7 @@ export default function Dashboard(){
 
     const { customers, getCustomers } = useContext(CustomerContext);
     const { tickets, getTickets, addTicket, updateTicket, 
-        // deleteTicket
+        deleteTicket
      } = useContext(TicketsContext);
 
     const handleForm = (e) => {
@@ -89,8 +89,9 @@ export default function Dashboard(){
     const delTicket = (e, index) => {
         e.preventDefault();
 
-        tasks.splice(index, 1);
-        setTasks([...tasks]);
+        deleteTicket(tickets[index].id);
+        // tasks.splice(index, 1);
+        // setTasks([...tasks]);
     }
 
     const handleTickets = (e) => {
