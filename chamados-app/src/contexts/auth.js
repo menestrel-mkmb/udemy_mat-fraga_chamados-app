@@ -241,6 +241,7 @@ export default function AuthProvider({ children }) {
                 loadingAuth,
                 loadingPage,
                 loginAttempt,
+                autoredir
             }}
         >
             { children }

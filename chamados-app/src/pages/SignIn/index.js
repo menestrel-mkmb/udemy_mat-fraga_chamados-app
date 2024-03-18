@@ -13,12 +13,15 @@ export default function SignIn(){
         deleteUser,
 
         loadingAuth,
-        loginAttempt
+        loginAttempt,
+        autoredir
     } = useContext(AuthContext);
 
     useEffect(() => {
         if(signed && !loginAttempt) deleteUser();
-    }, [deleteUser, loginAttempt, signed]);
+
+        if(signed && loginAttempt) setTimeout(autoredir('/dashboard'), 2000);
+    }, [deleteUser, loginAttempt, signed, autoredir]);
 
     return(
         <Main
