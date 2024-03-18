@@ -24,7 +24,9 @@ export default function Dashboard(){
     const [tasks, setTasks] = useState([]);
 
     const { customers, getCustomers } = useContext(CustomerContext);
-    const { tickets, getTickets, addTicket } = useContext(TicketsContext);
+    const { tickets, getTickets, addTicket, updateTicket, 
+        // deleteTicket
+     } = useContext(TicketsContext);
 
     const handleForm = (e) => {
         e.preventDefault();
@@ -60,16 +62,15 @@ export default function Dashboard(){
 
     const editTicket = (e) => {
         e.preventDefault();
-        const resultTickets = tickets.map((t) => {
-            if(t.ticketId === ticketId){
-                t.ticketId = ticketId;
+        tickets.map((t) => {
+            if(t.id === ticketId){
                 t.ticketClient = ticketClient;
                 t.ticketStatus = ticketStatus;
             }
             return t;
         });
 
-        setTasks(resultTickets);
+        updateTicket(ticketId, ticketClient, ticketStatus, Date.now());
         setToEdit(false);
         setToggleForm(false);
     }
@@ -85,7 +86,7 @@ export default function Dashboard(){
         setTicketStatus(tickets[index].ticketStatus);
     }
 
-    const deleteTicket = (e, index) => {
+    const delTicket = (e, index) => {
         e.preventDefault();
 
         tasks.splice(index, 1);
@@ -342,7 +343,7 @@ export default function Dashboard(){
                                 </button>
                                 <button
                                     className="delete__btn ticket-list__btn table__btn"
-                                    onClick={e => deleteTicket(e, index)}
+                                    onClick={e => delTicket(e, index)}
                                 >
                                     <FiDelete size={16} />
                                 </button>
