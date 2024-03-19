@@ -13,7 +13,7 @@ export default function Dashboard(){
     const [ticketId, setTicketId] = useState(null);
     const [ticketClient, setTicketClient] = useState(null);
     const [subject, setSubject] = useState(null);
-    const [ticketStatus, setTicketStatus] = useState('Pending');
+    const [ticketStatus, setTicketStatus] = useState('Pendente');
     const [ticketMessage, setTicketMessage] = useState('');
     const [initialLoad, setInitialLoad] = useState(true);
 
@@ -21,7 +21,7 @@ export default function Dashboard(){
     const [toEdit, setToEdit] = useState(false);
 
     const subjects= ['Suporte', 'Visita técnica', 'Financeiro'];
-    // const status = ['Pendente', 'Em andamento', 'Atendido', 'Cancelado'];
+    const status = ['Pendente', 'Em andamento', 'Atendido', 'Cancelado'];
 
     const { customers, getCustomers } = useContext(CustomerContext);
     const { tickets, getTickets, addTicket, updateTicket, 
@@ -38,7 +38,7 @@ export default function Dashboard(){
         e.preventDefault();
 
         setToggleForm(!toggleForm);
-        toEdit ? setToEdit(false) : setTicketStatus('Pending');
+        toEdit ? setToEdit(false) : setTicketStatus('Pendente');
     }
 
     const addTask = async (e) => {
@@ -260,21 +260,11 @@ export default function Dashboard(){
                                 value={ticketStatus}
                                 onChange={e => setTicketStatus(e.target.value)}
                             >
-                                <option
-                                    value="Pending"
-                                >
-                                    Pendente
-                                </option>
-                                <option
-                                    value="Finished"
-                                >
-                                    Finalizado
-                                </option>
-                                <option
-                                    value="Canceled"
-                                >
-                                    Cancelado
-                                </option>
+                                {status.map( (stat) => (
+                                    <option
+                                        key={stat}
+                                    >{stat}</option>
+                                ))}
                             </select>
                         </section>
                     )}
