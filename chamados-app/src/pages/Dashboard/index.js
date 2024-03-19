@@ -211,8 +211,8 @@ export default function Dashboard(){
                 >
                     { toEdit && (
                     <section className="details-info__sect">
-                        <span>{ticketId}</span>
-                        <span>{ticketDate}</span>
+                        <span>ID: {ticketId}</span>
+                        <span>Data: {ticketDate}</span>
                     </section>)}
                     <section
                         className="client__sect"
