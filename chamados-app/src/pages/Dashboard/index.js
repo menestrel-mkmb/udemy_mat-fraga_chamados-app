@@ -24,7 +24,7 @@ export default function Dashboard(){
 
     const { customers, getCustomers } = useContext(CustomerContext);
     const { tickets, getTickets, addTicket, updateTicket, 
-        deleteTicket
+        deleteTicket, getPendingTickets
      } = useContext(TicketsContext);
 
     const handleForm = (e) => {
@@ -91,8 +91,10 @@ export default function Dashboard(){
         deleteTicket(tickets[index].id);
     }
 
-    const handleTickets = (e) => {
+    const handleTickets = async (e) => {
         e.preventDefault();
+
+        await getPendingTickets();
     }
 
     useEffect(() => {
