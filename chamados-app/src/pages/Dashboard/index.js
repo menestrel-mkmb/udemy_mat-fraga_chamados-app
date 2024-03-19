@@ -47,7 +47,16 @@ export default function Dashboard(){
             hour = d.getHours(),
             minute = d.getMinutes();
 
-        return '' + [day, month, year].join('/') + ' ' + [hour, minute].join(':');
+        return '' +
+        [
+            day <= 9 ? '0' + day : day,
+            month <= 9 ? '0' + month : month,
+            year
+        ].join('/')
+        + ' ' + [
+            hour <= 9 ? '0' + hour : hour,
+            minute <= 9 ? '0' + minute : minute
+        ].join(':');
     }
 
     const handleForm = (e) => {
@@ -263,12 +272,12 @@ export default function Dashboard(){
                                 {subject}
                             </option>
                             )}
-                            { subjects.length > 0 && subjects.map( (subject, index) => (
+                            { subjects.length > 0 && subjects.map( (sub, index) => sub !== subject && (
                                 <option
                                     key={index}
-                                    value={subject}
+                                    value={sub}
                                 >
-                                    {subject}
+                                    {sub}
                                 </option>
                             ))}
                         </select>
