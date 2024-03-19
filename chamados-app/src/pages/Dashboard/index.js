@@ -15,6 +15,8 @@ export default function Dashboard(){
     const [subject, setSubject] = useState(null);
     const [ticketStatus, setTicketStatus] = useState('Pendente');
     const [ticketMessage, setTicketMessage] = useState('');
+    const [ticketDate, setTicketDate] = useState(null);
+
     const [initialLoad, setInitialLoad] = useState(true);
 
     const [toggleForm, setToggleForm] = useState(false);
@@ -135,6 +137,7 @@ export default function Dashboard(){
         setTicketStatus(tickets[index].ticketStatus);
         setSubject(tickets[index].ticketSubject);
         setTicketMessage(tickets[index].ticketMessage);
+        setTicketDate(formatDate(tickets[index].ticketDate));
     }
 
     const delTicket = async (e, index) => {
@@ -206,6 +209,11 @@ export default function Dashboard(){
                     className="form form__sect ticket__form"
                     onSubmit={e => toEdit ? editTicket(e) : addTask(e)}
                 >
+                    { toEdit && (
+                    <section className="details-info__sect">
+                        <span>{ticketId}</span>
+                        <span>{ticketDate}</span>
+                    </section>)}
                     <section
                         className="client__sect"
                     >
