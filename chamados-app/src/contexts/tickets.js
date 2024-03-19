@@ -18,6 +18,8 @@ export default function TicketsProvider({ children }){
     const [ticketId, setTicketId] = useState(null);
     const [ticketClient, setTicketClient] = useState(null);
     const [ticketStatus, setTicketStatus] = useState('Pending');
+    const [ticketSubject, setTicketSubject] = useState(null);
+    const [ticketMessage, setTicketMessage] = useState(null);
     const [ticketDate, setTicketDate] = useState('');
     
     const [tickets, setTickets] = useState([]);
@@ -33,6 +35,8 @@ export default function TicketsProvider({ children }){
                     id: ticket.id,
                     ticketClient: ticket.data().ticketClient,
                     ticketStatus: ticket.data().ticketStatus,
+                    ticketSubject: ticket.data().ticketSubject,
+                    ticketMessage: ticket.data().ticketMessage,
                     ticketDate: ticket.data().ticketDate
                 })
             });
@@ -68,10 +72,12 @@ export default function TicketsProvider({ children }){
         })
     }
 
-    const addTicket = async (client, status, date) => {
+    const addTicket = async (client, status, subject, message, date) => {
         await addDoc(ticketCollection, {
             ticketClient: client,
             ticketStatus: status,
+            ticketSubject: subject,
+            ticketMessage: message,
             ticketDate: date
         })
         .then(() => {
@@ -95,12 +101,14 @@ export default function TicketsProvider({ children }){
         })
     }
 
-    const updateTicket = async(id, client, status, date) => {
+    const updateTicket = async(id, client, status, subject, message, date) => {
         const docRef = doc(ticketCollection, id);
 
         await updateDoc(docRef, {
             ticketClient: client,
             ticketStatus: status,
+            ticketSubject: subject,
+            ticketMessage: message,
             ticketDate: date
         })
         .then(() => {
@@ -115,6 +123,8 @@ export default function TicketsProvider({ children }){
         setTicketId(null);
         setTicketClient(null);
         setTicketStatus('Pending');
+        setTicketSubject(null);
+        setTicketMessage(null);
         setTicketDate('');
     }
 
@@ -128,6 +138,8 @@ export default function TicketsProvider({ children }){
                 ticketId,
                 ticketClient,
                 ticketStatus,
+                ticketSubject,
+                ticketMessage,
                 ticketDate,
 
                 tickets,
