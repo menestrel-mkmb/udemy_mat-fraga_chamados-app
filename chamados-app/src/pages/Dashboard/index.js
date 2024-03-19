@@ -340,7 +340,7 @@ export default function Dashboard(){
                 >
                     <tr>
                         <th
-                            className="ticket-list__th"
+                            className="ticket-list__th id__th"
                             scope="col"
                         >
                             Identificador
@@ -390,7 +390,7 @@ export default function Dashboard(){
                             className="ticket-list__tr"
                         >
                             <td
-                                className="ticket-list__td"
+                                className="ticket-list__td id__td"
                                 data-label="ID"
                             >
                                 
