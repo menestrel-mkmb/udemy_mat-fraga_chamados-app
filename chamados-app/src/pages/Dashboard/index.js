@@ -110,10 +110,13 @@ export default function Dashboard(){
         setTicketMessage(tickets[index].ticketMessage);
     }
 
-    const delTicket = (e, index) => {
+    const delTicket = async (e, index) => {
         e.preventDefault();
 
-        deleteTicket(tickets[index].id);
+        await deleteTicket(tickets[index].id)
+        .then(() => {
+            getTickets();
+        })
     }
 
     const handleTickets = async (e) => {
