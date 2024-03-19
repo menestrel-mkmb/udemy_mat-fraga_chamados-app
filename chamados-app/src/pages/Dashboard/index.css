@@ -33,6 +33,11 @@
     min-width: 100%;
 }
 
+section.details-info__sect {
+    flex-direction: row;
+    justify-content: space-around;
+}
+
 .message__textarea {
     resize: none;
 
