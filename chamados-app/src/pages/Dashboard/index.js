@@ -25,7 +25,13 @@ export default function Dashboard(){
     const { customers, getCustomers } = useContext(CustomerContext);
     const { tickets, getTickets, addTicket, updateTicket, 
         deleteTicket, getPendingTickets
-     } = useContext(TicketsContext);
+    } = useContext(TicketsContext);
+     
+    const getDateTicket = () => {
+        var date = new Date();
+        
+        return date.toISOString();
+    }
 
     const handleForm = (e) => {
         e.preventDefault();
@@ -49,13 +55,18 @@ export default function Dashboard(){
             return;
         }
 
-        await addTicket(ticketClient, ticketStatus, Date.now())
+        await addTicket(
+            ticketClient, ticketStatus,
+            subject, ticketMessage,
+            getDateTicket()
+        )
         .then(() => {
             setTicketClient('');
             setSubject('');
+            setTicketMessage('');
+            getTickets();
         })
         setTicketMessage('');
-
         setToggleForm(false);
     }
 
@@ -69,7 +80,18 @@ export default function Dashboard(){
             return t;
         });
 
-        updateTicket(ticketId, ticketClient, ticketStatus, Date.now());
+        updateTicket(
+            ticketId,
+            ticketClient, ticketStatus,
+            subject, ticketMessage,
+            getDateTicket()
+        )
+        .then(() => {
+            setTicketClient('');
+            setSubject('');
+            setTicketMessage('');
+            getTickets();
+        })
         setToEdit(false);
         setToggleForm(false);
     }
