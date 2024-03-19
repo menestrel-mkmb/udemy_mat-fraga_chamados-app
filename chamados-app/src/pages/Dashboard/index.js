@@ -24,14 +24,30 @@ export default function Dashboard(){
     const status = ['Pendente', 'Em andamento', 'Atendido', 'Cancelado'];
 
     const { customers, getCustomers } = useContext(CustomerContext);
-    const { tickets, getTickets, addTicket, updateTicket, 
-        deleteTicket, getPendingTickets
+    const {
+        tickets,
+        getTickets,
+        addTicket,
+        updateTicket, 
+        deleteTicket,
+        getPendingTickets
     } = useContext(TicketsContext);
      
     const getDateTicket = () => {
         var date = new Date();
         
         return date.toISOString();
+    }
+
+    const formatDate = (date) => {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear(),
+            hour = d.getHours(),
+            minute = d.getMinutes();
+
+        return '' + [day, month, year].join('/') + ' ' + [hour, minute].join(':');
     }
 
     const handleForm = (e) => {
@@ -393,7 +409,7 @@ export default function Dashboard(){
                                 className="ticket-list__td"
                                 data-label="Data"
                             >
-                                <span>{ticket.ticketMessage}</span>
+                                <span>{formatDate(ticket.ticketDate)}</span>
                             </td>
                             <td
                                 className="ticket-list__td"
