@@ -196,18 +196,18 @@ export default function Dashboard(){
                             disabled={toEdit}
                         >
                             { !toEdit ? (
-                                <option
-                                    value=""
-                                >
-                                    Selecione um cliente
-                                </option>) : (
-                                <option
-                                    value={ticketClient}
-                                >
-                                    {ticketClient}
-                                </option>
+                                    <option
+                                        value=""
+                                    >
+                                        Selecione um cliente
+                                    </option>
+                                ) : (
+                                    <option
+                                        value={ticketClient}
+                                    >
+                                        {ticketClient}
+                                    </option>
                                 )
-
                             }{ customers.length > 0 && (
                                     customers.map( (customer, index) => (
                                     <option
@@ -318,7 +318,7 @@ export default function Dashboard(){
                             className="ticket-list__th"
                             scope="col"
                         >
-                            ID
+                            Identificador
                         </th>
                         <th
                             className="ticket-list__th"
@@ -330,7 +330,19 @@ export default function Dashboard(){
                             className="ticket-list__th"
                             scope="col"
                         >
-                            Status
+                            Estado
+                        </th>
+                        <th
+                            className="ticket-list__th"
+                            scope="col"
+                        >
+                            Assunto
+                        </th>
+                        <th
+                            className="ticket-list__th"
+                            scope="col"
+                        >
+                            Data
                         </th>
                         <th
                             className="ticket-list__th"
@@ -370,6 +382,18 @@ export default function Dashboard(){
                                 data-label="Status"
                             >
                                 <span>{ticket.ticketStatus}</span>
+                            </td>
+                            <td
+                                className="ticket-list__td"
+                                data-label="Assunto"
+                            >
+                                <span>{ticket.ticketSubject}</span>
+                            </td>
+                            <td
+                                className="ticket-list__td"
+                                data-label="Data"
+                            >
+                                <span>{ticket.ticketMessage}</span>
                             </td>
                             <td
                                 className="ticket-list__td"
