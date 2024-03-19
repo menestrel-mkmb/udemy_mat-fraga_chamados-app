@@ -17,7 +17,7 @@ export const TicketsContext = createContext({});
 export default function TicketsProvider({ children }){
     const [ticketId, setTicketId] = useState(null);
     const [ticketClient, setTicketClient] = useState(null);
-    const [ticketStatus, setTicketStatus] = useState('Pending');
+    const [ticketStatus, setTicketStatus] = useState('Pendente');
     const [ticketSubject, setTicketSubject] = useState(null);
     const [ticketMessage, setTicketMessage] = useState(null);
     const [ticketDate, setTicketDate] = useState('');
@@ -53,7 +53,7 @@ export default function TicketsProvider({ children }){
         .then( (ticket) => {
             let tic = [];
             ticket.forEach( (ticket) => {
-                if(ticket.data().ticketStatus === 'Pending'){
+                if(ticket.data().ticketStatus === 'Pendente'){
                     tic.push({
                         id: ticket.id,
                         ticketClient: ticket.data().ticketClient,
@@ -122,7 +122,7 @@ export default function TicketsProvider({ children }){
     const clearCurrentTicket = () => {
         setTicketId(null);
         setTicketClient(null);
-        setTicketStatus('Pending');
+        setTicketStatus('Pendente');
         setTicketSubject(null);
         setTicketMessage(null);
         setTicketDate('');

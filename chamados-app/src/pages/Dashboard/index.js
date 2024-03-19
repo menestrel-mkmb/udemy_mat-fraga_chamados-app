@@ -77,6 +77,8 @@ export default function Dashboard(){
             if(t.id === ticketId){
                 t.ticketClient = ticketClient;
                 t.ticketStatus = ticketStatus;
+                t.ticketSubject = subject;
+                t.ticketMessage = ticketMessage;
             }
             return t;
         });
