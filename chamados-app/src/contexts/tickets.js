@@ -44,6 +44,30 @@ export default function TicketsProvider({ children }){
         })
     }
 
+    const getPendingTickets = async () => {
+        await getDocs(ticketCollection)
+        .then( (ticket) => {
+            let tic = [];
+            ticket.forEach( (ticket) => {
+                if(ticket.data().ticketStatus === 'Pending'){
+                    tic.push({
+                        id: ticket.id,
+                        ticketClient: ticket.data().ticketClient,
+                        ticketStatus: ticket.data().ticketStatus,
+                        ticketDate: ticket.data().ticketDate
+                    })
+                }
+            });
+            setTickets(tic);
+            return tic;
+        })
+        .catch( (error) => {
+            console.log(error);
+            toast.error("Erro ao buscar chamados");
+            return [];
+        })
+    }
+
     const addTicket = async (client, status, date) => {
         await addDoc(ticketCollection, {
             ticketClient: client,
@@ -112,7 +136,9 @@ export default function TicketsProvider({ children }){
                 clearLocalList,
 
                 addTicket, getTickets,
-                deleteTicket, updateTicket
+                deleteTicket, updateTicket,
+
+                getPendingTickets
             }}
         >
             { children }
