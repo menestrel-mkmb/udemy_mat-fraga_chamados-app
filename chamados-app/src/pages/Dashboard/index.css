@@ -122,7 +122,15 @@
     scale: 1.05;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1200px) {
+    .id__th,
+    .id__td {
+        display: none;
+    }
+    
+}
+
+@media screen and (max-width: 900px) {
     .cta__sect {
         flex-wrap: wrap;
         gap: .1rem;
