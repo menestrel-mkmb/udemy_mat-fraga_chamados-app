@@ -21,6 +21,7 @@ export default function Dashboard(){
     const [toEdit, setToEdit] = useState(false);
 
     const subjects= ['Suporte', 'Visita técnica', 'Financeiro'];
+    // const status = ['Pendente', 'Em andamento', 'Atendido', 'Cancelado'];
 
     const { customers, getCustomers } = useContext(CustomerContext);
     const { tickets, getTickets, addTicket, updateTicket, 
@@ -37,7 +38,7 @@ export default function Dashboard(){
         e.preventDefault();
 
         setToggleForm(!toggleForm);
-        toEdit && setToEdit(false);
+        toEdit ? setToEdit(false) : setTicketStatus('Pending');
     }
 
     const addTask = async (e) => {
@@ -105,6 +106,8 @@ export default function Dashboard(){
         setTicketId(tickets[index].id);
         setTicketClient(tickets[index].ticketClient);
         setTicketStatus(tickets[index].ticketStatus);
+        setSubject(tickets[index].ticketSubject);
+        setTicketMessage(tickets[index].ticketMessage);
     }
 
     const delTicket = (e, index) => {
@@ -185,20 +188,32 @@ export default function Dashboard(){
                         <select
                             className="client__select"
                             onChange={e => setTicketClient(e.target.value)}
+                            disabled={toEdit}
                         >
-                            <option
-                                value=""
-                            >
-                                Selecione um cliente
-                            </option>
-                            { customers.length > 0 && customers.map( (customer, index) => (
+                            { !toEdit ? (
                                 <option
-                                    key={index}
-                                    value={customer.customerName}
+                                    value=""
                                 >
-                                    {customer.customerName}
+                                    Selecione um cliente
+                                </option>) : (
+                                <option
+                                    value={ticketClient}
+                                >
+                                    {ticketClient}
                                 </option>
-                            ))}
+                                )
+
+                            }{ customers.length > 0 && (
+                                    customers.map( (customer, index) => (
+                                    <option
+                                        key={index}
+                                        value={customer.customerName}
+                                    >
+                                        {customer.customerName}
+                                    </option>
+                                    ))
+                                )
+                            }
                         </select>
                     </section>
                     <section
@@ -214,11 +229,19 @@ export default function Dashboard(){
                             className="subject__select"
                             onChange={e => setSubject(e.target.value)}
                         >
+                            { !toEdit ? (
                             <option
                                 value=""
                             >
                                 Selecione um assunto
                             </option>
+                            ) : (
+                            <option
+                                value={subject}
+                            >
+                                {subject}
+                            </option>
+                            )}
                             { subjects.length > 0 && subjects.map( (subject, index) => (
                                 <option
                                     key={index}
@@ -270,7 +293,9 @@ export default function Dashboard(){
                             value={ticketMessage}
                             type="text"
                             placeholder="Descreva seu problema"
-                        ></textarea>
+                            disabled={toEdit}
+                            required
+                        >{toEdit && ticketMessage}</textarea>
                     </section>
                     <button
                         className={
