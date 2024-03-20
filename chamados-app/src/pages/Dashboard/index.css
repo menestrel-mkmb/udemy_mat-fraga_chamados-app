@@ -127,7 +127,7 @@ section.details-info__sect {
     scale: 1.05;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1400px) {
     .id__th,
     .id__td {
         display: none;
